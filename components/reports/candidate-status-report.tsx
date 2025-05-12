@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { getCandidateStatusReport } from '@/actions/reports';
 import {
   Card,
   CardContent,
@@ -8,7 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getCandidateStatusReport, ReportFilters } from '@/data/reports';
+import { CandidateStatusData, ReportFilters } from '@/data/reports';
+import { useEffect, useState } from 'react';
 import {
   Cell,
   Legend,
@@ -22,15 +23,13 @@ interface CandidateStatusReportProps {
   filters: ReportFilters;
 }
 
-interface StatusData {
-  status: string;
-  count: number;
-  label?: string;
+interface FormattedStatusData extends CandidateStatusData {
+  label: string;
 }
 
 export function CandidateStatusReport({ filters }: CandidateStatusReportProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<StatusData[]>([]);
+  const [data, setData] = useState<FormattedStatusData[]>([]);
   const [totalCandidates, setTotalCandidates] = useState(0);
 
   useEffect(() => {

@@ -9,7 +9,8 @@ import { InterviewOutcomesReport } from '@/components/reports/interview-outcomes
 import { MonthlyHiresReport } from '@/components/reports/monthly-hires-report';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { ReportFilters as ReportFiltersType } from '@/data/reports';
 
 interface ReportsClientProps {
   positions: { id: string; title: string }[];
@@ -32,8 +33,13 @@ export function ReportsClient({
   const pathname = usePathname();
   const urlSearchParams = useSearchParams();
 
+  // Initialize activeTab state from URL parameter with fallback
+  const [activeTab, setActiveTab] = useState(
+    searchParams.tab || 'candidate-status'
+  );
+
   // Process filters from searchParams
-  const filters = {
+  const filters: ReportFiltersType = {
     startDate: searchParams.startDate
       ? new Date(searchParams.startDate)
       : undefined,
@@ -42,12 +48,17 @@ export function ReportsClient({
     source: searchParams.source,
   };
 
-  // Determine active tab from searchParams
-  const activeTab = searchParams.tab || 'candidate-status';
+  // Update local state when URL parameters change
+  useEffect(() => {
+    setActiveTab(searchParams.tab || 'candidate-status');
+  }, [searchParams.tab]);
 
   // Handle tab change with client-side navigation
   const handleTabChange = useCallback(
     (value: string) => {
+      setActiveTab(value); // Update local state immediately for responsive UI
+
+      // Update URL with new tab while preserving other parameters
       const params = new URLSearchParams(urlSearchParams.toString());
       params.set('tab', value);
       router.push(`${pathname}?${params.toString()}`);

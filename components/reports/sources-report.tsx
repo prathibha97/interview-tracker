@@ -8,7 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getSourceReport, ReportFilters } from '@/data/reports';
+import { ReportFilters, SourceData } from '@/data/reports';
+import { getSourceReport } from '@/actions/reports';
 import {
   Cell,
   Legend,
@@ -20,11 +21,6 @@ import {
 
 interface SourcesReportProps {
   filters: ReportFilters;
-}
-
-interface SourceData {
-  source: string;
-  count: number;
 }
 
 export function SourcesReport({ filters }: SourcesReportProps) {

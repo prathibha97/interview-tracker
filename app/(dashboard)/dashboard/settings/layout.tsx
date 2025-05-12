@@ -26,7 +26,7 @@ export default async function SettingsLayout({
 
   return (
     <div className='space-y-6'>
-      <SettingsTabs />
+      {/* <SettingsTabs /> */}
       {children}
     </div>
   );

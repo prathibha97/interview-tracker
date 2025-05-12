@@ -1,4 +1,4 @@
-// /data/reports.ts
+'use server';
 
 import { db } from '@/lib/db';
 import {
@@ -14,79 +14,6 @@ export interface ReportFilters {
   positionId?: string;
   source?: string;
   minInterviews?: number;
-}
-// data/reports.ts - Types only for client components
-
-export interface ReportFilters {
-  startDate?: Date;
-  endDate?: Date;
-  positionId?: string;
-  source?: string;
-  minInterviews?: number;
-}
-
-export interface CandidateStatusData {
-  status: string;
-  count: number;
-}
-
-export interface CandidateStatusReport {
-  data: CandidateStatusData[];
-  totalCandidates: number;
-}
-
-export interface SourceData {
-  source: string;
-  count: number;
-}
-
-export interface SourceReport {
-  data: SourceData[];
-  totalCandidates: number;
-}
-
-export interface PositionData {
-  position: string;
-  count: number;
-}
-
-export interface PositionReport {
-  data: PositionData[];
-  totalCandidates: number;
-}
-
-export interface PositionAverage {
-  position: string;
-  avgDays: number;
-  count: number;
-}
-
-export interface TimeToHireReport {
-  avgTimeToHire: number;
-  positionAverages: PositionAverage[];
-  totalHires: number;
-}
-
-export interface OutcomeData {
-  recommendation: string;
-  count: number;
-}
-
-export interface InterviewOutcomeReport {
-  data: OutcomeData[];
-  totalFeedback: number;
-  totalInterviews: number;
-  interviewsWithFeedback: number;
-}
-
-export interface MonthlyHireData {
-  month: string;
-  count: number;
-}
-
-export interface MonthlyHiresReport {
-  data: MonthlyHireData[];
-  totalHires: number;
 }
 
 export async function getCandidateStatusReport(filters: ReportFilters = {}) {
@@ -423,7 +350,9 @@ export async function getInterviewOutcomeReport(filters: ReportFilters = {}) {
     }
 
     if (filters.positionId) {
-      where.positionId = filters.positionId;
+      where.candidate = {
+        positionId: filters.positionId,
+      };
     }
 
     // Get completed interviews with their feedback

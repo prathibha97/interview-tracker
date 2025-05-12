@@ -8,7 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getMonthlyHiresReport, ReportFilters } from '@/data/reports';
+import { ReportFilters, MonthlyHireData } from '@/data/reports';
+import { getMonthlyHiresReport } from '@/actions/reports';
 import {
   Bar,
   BarChart,
@@ -23,14 +24,9 @@ interface MonthlyHiresReportProps {
   filters: ReportFilters;
 }
 
-interface MonthlyHiresData {
-  month: string;
-  count: number;
-}
-
 export function MonthlyHiresReport({ filters }: MonthlyHiresReportProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<MonthlyHiresData[]>([]);
+  const [data, setData] = useState<MonthlyHireData[]>([]);
   const [totalHires, setTotalHires] = useState(0);
 
   useEffect(() => {
