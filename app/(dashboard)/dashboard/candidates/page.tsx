@@ -1,0 +1,68 @@
+// app/(dashboard)/dashboard/candidates/page.tsx
+
+import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
+import { auth } from '@/auth';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { PlusIcon } from 'lucide-react';
+import { CandidatesList } from '@/components/candidates/candidates-list';
+import { CandidatesSearch } from '@/components/candidates/candidates-search';
+import { CandidatesFilters } from '@/components/candidates/candidates-filters';
+
+interface CandidatesPageProps {
+  searchParams: {
+    page?: string;
+    search?: string;
+    status?: string;
+    position?: string;
+  };
+}
+
+export default async function CandidatesPage({
+  searchParams,
+}: CandidatesPageProps) {
+  const session = await auth();
+
+  if (!session || !session.user) {
+    redirect('/login');
+  }
+
+  const page = Number(searchParams.page) || 1;
+  const search = searchParams.search || '';
+  const status = searchParams.status || '';
+  const position = searchParams.position || '';
+
+  return (
+    <div className='space-y-6'>
+      <div className='flex items-center justify-between'>
+        <div>
+          <h1 className='text-3xl font-bold'>Candidates</h1>
+          <p className='text-muted-foreground'>
+            Manage and track candidates in your pipeline
+          </p>
+        </div>
+        <Button asChild>
+          <Link href='/dashboard/candidates/new'>
+            <PlusIcon className='mr-2 h-4 w-4' />
+            Add Candidate
+          </Link>
+        </Button>
+      </div>
+
+      <div className='flex items-center justify-between space-x-4'>
+        <CandidatesSearch />
+        <CandidatesFilters />
+      </div>
+
+      <Suspense fallback={<div>Loading candidates...</div>}>
+        <CandidatesList
+          page={page}
+          search={search}
+          status={status}
+          position={position}
+        />
+      </Suspense>
+    </div>
+  );
+}

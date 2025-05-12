@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: recruitment-postgres
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-recruitment}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-data:/data/postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-recruitment}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - recruitment-network
+
+  pgadmin:
+    container_name: recruitment-pgadmin
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - recruitment-network
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+networks:
+  recruitment-network:
+    driver: bridge
