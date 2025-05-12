@@ -1,4 +1,4 @@
-// components/positions/position-form.tsx (continued)
+// components/positions/position-form.tsx (updated)
 
 'use client';
 
@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Position, Workflow } from '@/lib/generated/prisma';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -29,13 +30,12 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { createPosition, updatePosition } from '@/actions/position';
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { Position } from '@/lib/generated/prisma';
 
 // Form schema
 const positionSchema = z.object({
   title: z.string().min(1, 'Title is required'),
-  department: z.string().optional(),
-  workflowId: z.string().optional(),
+  department: z.string().optional().nullish(),
+  workflowId: z.string().optional().nullish(),
   isActive: z.boolean().default(true),
 });
 
@@ -43,43 +43,18 @@ type PositionFormValues = z.infer<typeof positionSchema>;
 
 interface PositionFormProps {
   position?: Position | null;
+  workflows: Workflow[];
   isEdit?: boolean;
 }
 
-export function PositionForm({ position, isEdit = false }: PositionFormProps) {
+export function PositionForm({
+  position,
+  workflows,
+  isEdit = false,
+}: PositionFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [workflows, setWorkflows] = useState<
-    { id: string; name: string; isDefault: boolean }[]
-  >([]);
-  const [isLoadingWorkflows, setIsLoadingWorkflows] = useState(true);
-
-  // Fetch workflows
-  useEffect(() => {
-    async function fetchWorkflows() {
-      try {
-        const response = await fetch('/api/workflows');
-
-        if (response.ok) {
-          const data = await response.json();
-          setWorkflows(
-            data.map((w: any) => ({
-              id: w.id,
-              name: w.name,
-              isDefault: w.isDefault,
-            }))
-          );
-        }
-      } catch (error) {
-        console.error('Failed to fetch workflows:', error);
-      } finally {
-        setIsLoadingWorkflows(false);
-      }
-    }
-
-    fetchWorkflows();
-  }, []);
 
   // Find default workflow
   const defaultWorkflow = workflows.find((w) => w.isDefault);
@@ -179,11 +154,7 @@ export function PositionForm({ position, isEdit = false }: PositionFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Interview Workflow</FormLabel>
-              <Select
-                disabled={isLoadingWorkflows}
-                onValueChange={field.onChange}
-                value={field.value || 'None'}
-              >
+              <Select onValueChange={field.onChange} value={field.value || ''}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Select a workflow' />
@@ -191,17 +162,11 @@ export function PositionForm({ position, isEdit = false }: PositionFormProps) {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value='None'>None</SelectItem>
-                  {isLoadingWorkflows ? (
-                    <SelectItem value='loading' disabled>
-                      Loading workflows...
+                  {workflows.map((workflow) => (
+                    <SelectItem key={workflow.id} value={workflow.id}>
+                      {workflow.name} {workflow.isDefault ? '(Default)' : ''}
                     </SelectItem>
-                  ) : (
-                    workflows.map((workflow) => (
-                      <SelectItem key={workflow.id} value={workflow.id}>
-                        {workflow.name} {workflow.isDefault ? '(Default)' : ''}
-                      </SelectItem>
-                    ))
-                  )}
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>

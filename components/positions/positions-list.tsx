@@ -1,7 +1,10 @@
-// components/positions/positions-list.tsx (updated version)
+// components/positions/positions-list.tsx (update links)
 
-import { Badge } from '@/components/ui/badge';
+import { getPositions } from '@/data/position';
+import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
@@ -10,10 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getPositions } from '@/data/position';
-import { formatDate } from '@/lib/utils';
 import { PencilIcon, TrashIcon } from 'lucide-react';
-import Link from 'next/link';
 
 export async function PositionsList() {
   const positions = await getPositions({
