@@ -237,6 +237,17 @@ model Note {
   updatedAt   DateTime  @updatedAt
 }
 
+model Settings {
+  id                     String    @id @default(cuid())
+  companyName            String    @default("Company Name")
+  companyLogo            String?
+  emailNotifications     Boolean   @default(true)
+  feedbackReminders      Boolean   @default(true)
+  defaultInterviewLength Int       @default(60) // minutes
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+}
+
 // Enums
 enum UserRole {
   ADMIN
