@@ -3,7 +3,7 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DashboardStats } from '@/types/dashboard';
+import { DashboardStats } from '@/data/dashboard';
 import {
   BadgeCheckIcon,
   CalendarIcon,

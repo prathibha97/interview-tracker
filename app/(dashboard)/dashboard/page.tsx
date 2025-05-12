@@ -1,14 +1,17 @@
 // app/(dashboard)/dashboard/page.tsx
 
 import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
 import { DashboardOverview } from '@/components/dashboard/dashboard-overview';
 import { DashboardSummary } from '@/components/dashboard/dashboard-summary';
+import { DashboardCharts } from '@/components/dashboard/dashboard-charts';
 import {
-  getDashboardStats,
-  getRecentCandidates,
   getUpcomingInterviews,
+  getRecentCandidates,
+  getDashboardStats,
 } from '@/data/dashboard';
-import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { UserRole } from '@/lib/generated/prisma';
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -17,9 +20,14 @@ export default async function DashboardPage() {
     redirect('/login');
   }
 
+  // Fetch data for the dashboard
   const upcomingInterviews = await getUpcomingInterviews();
   const recentCandidates = await getRecentCandidates();
   const stats = await getDashboardStats();
+
+  const isManager =
+    session.user.role === UserRole.ADMIN ||
+    session.user.role === UserRole.MANAGER;
 
   return (
     <div className='space-y-6'>
@@ -30,9 +38,17 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <DashboardSummary stats={stats} />
+      <Suspense fallback={<div>Loading stats...</div>}>
+        <DashboardSummary stats={stats} />
+      </Suspense>
 
-      <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+      {isManager && (
+        <Suspense fallback={<div>Loading charts...</div>}>
+          <DashboardCharts stats={stats} />
+        </Suspense>
+      )}
+
+      <div className='grid gap-6 md:grid-cols-2'>
         <DashboardOverview
           title='Upcoming Interviews'
           data={upcomingInterviews}
