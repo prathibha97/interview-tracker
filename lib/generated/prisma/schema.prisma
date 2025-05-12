@@ -37,6 +37,7 @@ model User {
   createdCandidates   Candidate[] @relation("createdBy")
   conductedInterviews Interview[] @relation("interviewer")
   providedFeedbacks   Feedback[]
+  createdInterviews   Interview[] @relation("createdByUser")
 }
 
 model Account {
@@ -111,6 +112,8 @@ model Candidate {
   source     String?
   position   Position?       @relation(fields: [positionId], references: [id])
   positionId String?
+  isActive   Boolean         @default(true)
+  isArchived Boolean         @default(false)
 
   // Relations
   interviews Interview[]
@@ -151,6 +154,7 @@ model Interview {
   location  String? // Can be URL for virtual interviews
   type      InterviewType   @default(TECHNICAL)
   status    InterviewStatus @default(SCHEDULED)
+  notes     String?         @db.Text
 
   // Relations
   candidate    Candidate  @relation(fields: [candidateId], references: [id])
@@ -161,9 +165,10 @@ model Interview {
   feedbacks    Feedback[]
   stage        Stage?     @relation(fields: [stageId], references: [id])
   stageId      String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdBy    User       @relation("createdByUser", fields: [createdById], references: [id])
+  createdById  String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Feedback {

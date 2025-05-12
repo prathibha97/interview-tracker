@@ -2320,6 +2320,7 @@ export namespace Prisma {
     createdCandidates: number
     conductedInterviews: number
     providedFeedbacks: number
+    createdInterviews: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2330,6 +2331,7 @@ export namespace Prisma {
     createdCandidates?: boolean | UserCountOutputTypeCountCreatedCandidatesArgs
     conductedInterviews?: boolean | UserCountOutputTypeCountConductedInterviewsArgs
     providedFeedbacks?: boolean | UserCountOutputTypeCountProvidedFeedbacksArgs
+    createdInterviews?: boolean | UserCountOutputTypeCountCreatedInterviewsArgs
   }
 
   // Custom InputTypes
@@ -2390,6 +2392,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProvidedFeedbacksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FeedbackWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedInterviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InterviewWhereInput
   }
 
 
@@ -2880,6 +2889,7 @@ export namespace Prisma {
     createdCandidates?: boolean | User$createdCandidatesArgs<ExtArgs>
     conductedInterviews?: boolean | User$conductedInterviewsArgs<ExtArgs>
     providedFeedbacks?: boolean | User$providedFeedbacksArgs<ExtArgs>
+    createdInterviews?: boolean | User$createdInterviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2932,6 +2942,7 @@ export namespace Prisma {
     createdCandidates?: boolean | User$createdCandidatesArgs<ExtArgs>
     conductedInterviews?: boolean | User$conductedInterviewsArgs<ExtArgs>
     providedFeedbacks?: boolean | User$providedFeedbacksArgs<ExtArgs>
+    createdInterviews?: boolean | User$createdInterviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2948,6 +2959,7 @@ export namespace Prisma {
       createdCandidates: Prisma.$CandidatePayload<ExtArgs>[]
       conductedInterviews: Prisma.$InterviewPayload<ExtArgs>[]
       providedFeedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
+      createdInterviews: Prisma.$InterviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3362,6 +3374,7 @@ export namespace Prisma {
     createdCandidates<T extends User$createdCandidatesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdCandidatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CandidatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conductedInterviews<T extends User$conductedInterviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$conductedInterviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     providedFeedbacks<T extends User$providedFeedbacksArgs<ExtArgs> = {}>(args?: Subset<T, User$providedFeedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdInterviews<T extends User$createdInterviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdInterviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3973,6 +3986,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdInterviews
+   */
+  export type User$createdInterviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: InterviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: InterviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InterviewInclude<ExtArgs> | null
+    where?: InterviewWhereInput
+    orderBy?: InterviewOrderByWithRelationInput | InterviewOrderByWithRelationInput[]
+    cursor?: InterviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InterviewScalarFieldEnum | InterviewScalarFieldEnum[]
   }
 
   /**
@@ -10206,6 +10243,8 @@ export namespace Prisma {
     status: $Enums.CandidateStatus | null
     source: string | null
     positionId: string | null
+    isActive: boolean | null
+    isArchived: boolean | null
     createdById: string | null
     managedById: string | null
     reviewedById: string | null
@@ -10222,6 +10261,8 @@ export namespace Prisma {
     status: $Enums.CandidateStatus | null
     source: string | null
     positionId: string | null
+    isActive: boolean | null
+    isArchived: boolean | null
     createdById: string | null
     managedById: string | null
     reviewedById: string | null
@@ -10238,6 +10279,8 @@ export namespace Prisma {
     status: number
     source: number
     positionId: number
+    isActive: number
+    isArchived: number
     createdById: number
     managedById: number
     reviewedById: number
@@ -10256,6 +10299,8 @@ export namespace Prisma {
     status?: true
     source?: true
     positionId?: true
+    isActive?: true
+    isArchived?: true
     createdById?: true
     managedById?: true
     reviewedById?: true
@@ -10272,6 +10317,8 @@ export namespace Prisma {
     status?: true
     source?: true
     positionId?: true
+    isActive?: true
+    isArchived?: true
     createdById?: true
     managedById?: true
     reviewedById?: true
@@ -10288,6 +10335,8 @@ export namespace Prisma {
     status?: true
     source?: true
     positionId?: true
+    isActive?: true
+    isArchived?: true
     createdById?: true
     managedById?: true
     reviewedById?: true
@@ -10377,6 +10426,8 @@ export namespace Prisma {
     status: $Enums.CandidateStatus
     source: string | null
     positionId: string | null
+    isActive: boolean
+    isArchived: boolean
     createdById: string
     managedById: string | null
     reviewedById: string | null
@@ -10410,6 +10461,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     positionId?: boolean
+    isActive?: boolean
+    isArchived?: boolean
     createdById?: boolean
     managedById?: boolean
     reviewedById?: boolean
@@ -10435,6 +10488,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     positionId?: boolean
+    isActive?: boolean
+    isArchived?: boolean
     createdById?: boolean
     managedById?: boolean
     reviewedById?: boolean
@@ -10455,6 +10510,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     positionId?: boolean
+    isActive?: boolean
+    isArchived?: boolean
     createdById?: boolean
     managedById?: boolean
     reviewedById?: boolean
@@ -10475,6 +10532,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     positionId?: boolean
+    isActive?: boolean
+    isArchived?: boolean
     createdById?: boolean
     managedById?: boolean
     reviewedById?: boolean
@@ -10482,7 +10541,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CandidateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "resumeUrl" | "status" | "source" | "positionId" | "createdById" | "managedById" | "reviewedById" | "createdAt" | "updatedAt", ExtArgs["result"]["candidate"]>
+  export type CandidateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "resumeUrl" | "status" | "source" | "positionId" | "isActive" | "isArchived" | "createdById" | "managedById" | "reviewedById" | "createdAt" | "updatedAt", ExtArgs["result"]["candidate"]>
   export type CandidateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     position?: boolean | Candidate$positionArgs<ExtArgs>
     interviews?: boolean | Candidate$interviewsArgs<ExtArgs>
@@ -10528,6 +10587,8 @@ export namespace Prisma {
       status: $Enums.CandidateStatus
       source: string | null
       positionId: string | null
+      isActive: boolean
+      isArchived: boolean
       createdById: string
       managedById: string | null
       reviewedById: string | null
@@ -10972,6 +11033,8 @@ export namespace Prisma {
     readonly status: FieldRef<"Candidate", 'CandidateStatus'>
     readonly source: FieldRef<"Candidate", 'String'>
     readonly positionId: FieldRef<"Candidate", 'String'>
+    readonly isActive: FieldRef<"Candidate", 'Boolean'>
+    readonly isArchived: FieldRef<"Candidate", 'Boolean'>
     readonly createdById: FieldRef<"Candidate", 'String'>
     readonly managedById: FieldRef<"Candidate", 'String'>
     readonly reviewedById: FieldRef<"Candidate", 'String'>
@@ -12723,9 +12786,11 @@ export namespace Prisma {
     location: string | null
     type: $Enums.InterviewType | null
     status: $Enums.InterviewStatus | null
+    notes: string | null
     candidateId: string | null
     positionId: string | null
     stageId: string | null
+    createdById: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12738,9 +12803,11 @@ export namespace Prisma {
     location: string | null
     type: $Enums.InterviewType | null
     status: $Enums.InterviewStatus | null
+    notes: string | null
     candidateId: string | null
     positionId: string | null
     stageId: string | null
+    createdById: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12753,9 +12820,11 @@ export namespace Prisma {
     location: number
     type: number
     status: number
+    notes: number
     candidateId: number
     positionId: number
     stageId: number
+    createdById: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12770,9 +12839,11 @@ export namespace Prisma {
     location?: true
     type?: true
     status?: true
+    notes?: true
     candidateId?: true
     positionId?: true
     stageId?: true
+    createdById?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12785,9 +12856,11 @@ export namespace Prisma {
     location?: true
     type?: true
     status?: true
+    notes?: true
     candidateId?: true
     positionId?: true
     stageId?: true
+    createdById?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12800,9 +12873,11 @@ export namespace Prisma {
     location?: true
     type?: true
     status?: true
+    notes?: true
     candidateId?: true
     positionId?: true
     stageId?: true
+    createdById?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12888,9 +12963,11 @@ export namespace Prisma {
     location: string | null
     type: $Enums.InterviewType
     status: $Enums.InterviewStatus
+    notes: string | null
     candidateId: string
     positionId: string
     stageId: string | null
+    createdById: string
     createdAt: Date
     updatedAt: Date
     _count: InterviewCountAggregateOutputType | null
@@ -12920,9 +12997,11 @@ export namespace Prisma {
     location?: boolean
     type?: boolean
     status?: boolean
+    notes?: boolean
     candidateId?: boolean
     positionId?: boolean
     stageId?: boolean
+    createdById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
@@ -12930,6 +13009,7 @@ export namespace Prisma {
     interviewers?: boolean | Interview$interviewersArgs<ExtArgs>
     feedbacks?: boolean | Interview$feedbacksArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | InterviewCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
 
@@ -12941,14 +13021,17 @@ export namespace Prisma {
     location?: boolean
     type?: boolean
     status?: boolean
+    notes?: boolean
     candidateId?: boolean
     positionId?: boolean
     stageId?: boolean
+    createdById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
     position?: boolean | PositionDefaultArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
 
   export type InterviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12959,14 +13042,17 @@ export namespace Prisma {
     location?: boolean
     type?: boolean
     status?: boolean
+    notes?: boolean
     candidateId?: boolean
     positionId?: boolean
     stageId?: boolean
+    createdById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
     position?: boolean | PositionDefaultArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
 
   export type InterviewSelectScalar = {
@@ -12977,31 +13063,36 @@ export namespace Prisma {
     location?: boolean
     type?: boolean
     status?: boolean
+    notes?: boolean
     candidateId?: boolean
     positionId?: boolean
     stageId?: boolean
+    createdById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type InterviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "startTime" | "endTime" | "location" | "type" | "status" | "candidateId" | "positionId" | "stageId" | "createdAt" | "updatedAt", ExtArgs["result"]["interview"]>
+  export type InterviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "startTime" | "endTime" | "location" | "type" | "status" | "notes" | "candidateId" | "positionId" | "stageId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["interview"]>
   export type InterviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
     position?: boolean | PositionDefaultArgs<ExtArgs>
     interviewers?: boolean | Interview$interviewersArgs<ExtArgs>
     feedbacks?: boolean | Interview$feedbacksArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | InterviewCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InterviewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
     position?: boolean | PositionDefaultArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type InterviewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     candidate?: boolean | CandidateDefaultArgs<ExtArgs>
     position?: boolean | PositionDefaultArgs<ExtArgs>
     stage?: boolean | Interview$stageArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $InterviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13012,6 +13103,7 @@ export namespace Prisma {
       interviewers: Prisma.$UserPayload<ExtArgs>[]
       feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
       stage: Prisma.$StagePayload<ExtArgs> | null
+      createdBy: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13021,9 +13113,11 @@ export namespace Prisma {
       location: string | null
       type: $Enums.InterviewType
       status: $Enums.InterviewStatus
+      notes: string | null
       candidateId: string
       positionId: string
       stageId: string | null
+      createdById: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["interview"]>
@@ -13425,6 +13519,7 @@ export namespace Prisma {
     interviewers<T extends Interview$interviewersArgs<ExtArgs> = {}>(args?: Subset<T, Interview$interviewersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbacks<T extends Interview$feedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Interview$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stage<T extends Interview$stageArgs<ExtArgs> = {}>(args?: Subset<T, Interview$stageArgs<ExtArgs>>): Prisma__StageClient<$Result.GetResult<Prisma.$StagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13461,9 +13556,11 @@ export namespace Prisma {
     readonly location: FieldRef<"Interview", 'String'>
     readonly type: FieldRef<"Interview", 'InterviewType'>
     readonly status: FieldRef<"Interview", 'InterviewStatus'>
+    readonly notes: FieldRef<"Interview", 'String'>
     readonly candidateId: FieldRef<"Interview", 'String'>
     readonly positionId: FieldRef<"Interview", 'String'>
     readonly stageId: FieldRef<"Interview", 'String'>
+    readonly createdById: FieldRef<"Interview", 'String'>
     readonly createdAt: FieldRef<"Interview", 'DateTime'>
     readonly updatedAt: FieldRef<"Interview", 'DateTime'>
   }
@@ -20682,6 +20779,8 @@ export namespace Prisma {
     status: 'status',
     source: 'source',
     positionId: 'positionId',
+    isActive: 'isActive',
+    isArchived: 'isArchived',
     createdById: 'createdById',
     managedById: 'managedById',
     reviewedById: 'reviewedById',
@@ -20713,9 +20812,11 @@ export namespace Prisma {
     location: 'location',
     type: 'type',
     status: 'status',
+    notes: 'notes',
     candidateId: 'candidateId',
     positionId: 'positionId',
     stageId: 'stageId',
+    createdById: 'createdById',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -20980,6 +21081,7 @@ export namespace Prisma {
     createdCandidates?: CandidateListRelationFilter
     conductedInterviews?: InterviewListRelationFilter
     providedFeedbacks?: FeedbackListRelationFilter
+    createdInterviews?: InterviewListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21001,6 +21103,7 @@ export namespace Prisma {
     createdCandidates?: CandidateOrderByRelationAggregateInput
     conductedInterviews?: InterviewOrderByRelationAggregateInput
     providedFeedbacks?: FeedbackOrderByRelationAggregateInput
+    createdInterviews?: InterviewOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21025,6 +21128,7 @@ export namespace Prisma {
     createdCandidates?: CandidateListRelationFilter
     conductedInterviews?: InterviewListRelationFilter
     providedFeedbacks?: FeedbackListRelationFilter
+    createdInterviews?: InterviewListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -21398,6 +21502,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFilter<"Candidate"> | $Enums.CandidateStatus
     source?: StringNullableFilter<"Candidate"> | string | null
     positionId?: StringNullableFilter<"Candidate"> | string | null
+    isActive?: BoolFilter<"Candidate"> | boolean
+    isArchived?: BoolFilter<"Candidate"> | boolean
     createdById?: StringFilter<"Candidate"> | string
     managedById?: StringNullableFilter<"Candidate"> | string | null
     reviewedById?: StringNullableFilter<"Candidate"> | string | null
@@ -21422,6 +21528,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrderInput | SortOrder
     positionId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isArchived?: SortOrder
     createdById?: SortOrder
     managedById?: SortOrderInput | SortOrder
     reviewedById?: SortOrderInput | SortOrder
@@ -21449,6 +21557,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFilter<"Candidate"> | $Enums.CandidateStatus
     source?: StringNullableFilter<"Candidate"> | string | null
     positionId?: StringNullableFilter<"Candidate"> | string | null
+    isActive?: BoolFilter<"Candidate"> | boolean
+    isArchived?: BoolFilter<"Candidate"> | boolean
     createdById?: StringFilter<"Candidate"> | string
     managedById?: StringNullableFilter<"Candidate"> | string | null
     reviewedById?: StringNullableFilter<"Candidate"> | string | null
@@ -21473,6 +21583,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrderInput | SortOrder
     positionId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isArchived?: SortOrder
     createdById?: SortOrder
     managedById?: SortOrderInput | SortOrder
     reviewedById?: SortOrderInput | SortOrder
@@ -21495,6 +21607,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusWithAggregatesFilter<"Candidate"> | $Enums.CandidateStatus
     source?: StringNullableWithAggregatesFilter<"Candidate"> | string | null
     positionId?: StringNullableWithAggregatesFilter<"Candidate"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Candidate"> | boolean
+    isArchived?: BoolWithAggregatesFilter<"Candidate"> | boolean
     createdById?: StringWithAggregatesFilter<"Candidate"> | string
     managedById?: StringNullableWithAggregatesFilter<"Candidate"> | string | null
     reviewedById?: StringNullableWithAggregatesFilter<"Candidate"> | string | null
@@ -21584,9 +21698,11 @@ export namespace Prisma {
     location?: StringNullableFilter<"Interview"> | string | null
     type?: EnumInterviewTypeFilter<"Interview"> | $Enums.InterviewType
     status?: EnumInterviewStatusFilter<"Interview"> | $Enums.InterviewStatus
+    notes?: StringNullableFilter<"Interview"> | string | null
     candidateId?: StringFilter<"Interview"> | string
     positionId?: StringFilter<"Interview"> | string
     stageId?: StringNullableFilter<"Interview"> | string | null
+    createdById?: StringFilter<"Interview"> | string
     createdAt?: DateTimeFilter<"Interview"> | Date | string
     updatedAt?: DateTimeFilter<"Interview"> | Date | string
     candidate?: XOR<CandidateScalarRelationFilter, CandidateWhereInput>
@@ -21594,6 +21710,7 @@ export namespace Prisma {
     interviewers?: UserListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     stage?: XOR<StageNullableScalarRelationFilter, StageWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type InterviewOrderByWithRelationInput = {
@@ -21604,9 +21721,11 @@ export namespace Prisma {
     location?: SortOrderInput | SortOrder
     type?: SortOrder
     status?: SortOrder
+    notes?: SortOrderInput | SortOrder
     candidateId?: SortOrder
     positionId?: SortOrder
     stageId?: SortOrderInput | SortOrder
+    createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     candidate?: CandidateOrderByWithRelationInput
@@ -21614,6 +21733,7 @@ export namespace Prisma {
     interviewers?: UserOrderByRelationAggregateInput
     feedbacks?: FeedbackOrderByRelationAggregateInput
     stage?: StageOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
   }
 
   export type InterviewWhereUniqueInput = Prisma.AtLeast<{
@@ -21627,9 +21747,11 @@ export namespace Prisma {
     location?: StringNullableFilter<"Interview"> | string | null
     type?: EnumInterviewTypeFilter<"Interview"> | $Enums.InterviewType
     status?: EnumInterviewStatusFilter<"Interview"> | $Enums.InterviewStatus
+    notes?: StringNullableFilter<"Interview"> | string | null
     candidateId?: StringFilter<"Interview"> | string
     positionId?: StringFilter<"Interview"> | string
     stageId?: StringNullableFilter<"Interview"> | string | null
+    createdById?: StringFilter<"Interview"> | string
     createdAt?: DateTimeFilter<"Interview"> | Date | string
     updatedAt?: DateTimeFilter<"Interview"> | Date | string
     candidate?: XOR<CandidateScalarRelationFilter, CandidateWhereInput>
@@ -21637,6 +21759,7 @@ export namespace Prisma {
     interviewers?: UserListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     stage?: XOR<StageNullableScalarRelationFilter, StageWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type InterviewOrderByWithAggregationInput = {
@@ -21647,9 +21770,11 @@ export namespace Prisma {
     location?: SortOrderInput | SortOrder
     type?: SortOrder
     status?: SortOrder
+    notes?: SortOrderInput | SortOrder
     candidateId?: SortOrder
     positionId?: SortOrder
     stageId?: SortOrderInput | SortOrder
+    createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: InterviewCountOrderByAggregateInput
@@ -21668,9 +21793,11 @@ export namespace Prisma {
     location?: StringNullableWithAggregatesFilter<"Interview"> | string | null
     type?: EnumInterviewTypeWithAggregatesFilter<"Interview"> | $Enums.InterviewType
     status?: EnumInterviewStatusWithAggregatesFilter<"Interview"> | $Enums.InterviewStatus
+    notes?: StringNullableWithAggregatesFilter<"Interview"> | string | null
     candidateId?: StringWithAggregatesFilter<"Interview"> | string
     positionId?: StringWithAggregatesFilter<"Interview"> | string
     stageId?: StringNullableWithAggregatesFilter<"Interview"> | string | null
+    createdById?: StringWithAggregatesFilter<"Interview"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Interview"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Interview"> | Date | string
   }
@@ -22065,6 +22192,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22086,6 +22214,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -22107,6 +22236,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22128,6 +22258,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22510,6 +22641,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -22531,6 +22664,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -22550,6 +22685,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -22571,6 +22708,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22591,6 +22730,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -22606,6 +22747,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22619,6 +22762,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22711,6 +22856,7 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     candidate: CandidateCreateNestedOneWithoutInterviewsInput
@@ -22718,6 +22864,7 @@ export namespace Prisma {
     interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
     feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
     stage?: StageCreateNestedOneWithoutInterviewsInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateInput = {
@@ -22728,9 +22875,11 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
@@ -22745,6 +22894,7 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
@@ -22752,6 +22902,7 @@ export namespace Prisma {
     interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
     feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
     stage?: StageUpdateOneWithoutInterviewsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateInput = {
@@ -22762,9 +22913,11 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
@@ -22779,9 +22932,11 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22794,6 +22949,7 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22806,9 +22962,11 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23686,6 +23844,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrder
     positionId?: SortOrder
+    isActive?: SortOrder
+    isArchived?: SortOrder
     createdById?: SortOrder
     managedById?: SortOrder
     reviewedById?: SortOrder
@@ -23702,6 +23862,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrder
     positionId?: SortOrder
+    isActive?: SortOrder
+    isArchived?: SortOrder
     createdById?: SortOrder
     managedById?: SortOrder
     reviewedById?: SortOrder
@@ -23718,6 +23880,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrder
     positionId?: SortOrder
+    isActive?: SortOrder
+    isArchived?: SortOrder
     createdById?: SortOrder
     managedById?: SortOrder
     reviewedById?: SortOrder
@@ -23817,9 +23981,11 @@ export namespace Prisma {
     location?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    notes?: SortOrder
     candidateId?: SortOrder
     positionId?: SortOrder
     stageId?: SortOrder
+    createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -23832,9 +23998,11 @@ export namespace Prisma {
     location?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    notes?: SortOrder
     candidateId?: SortOrder
     positionId?: SortOrder
     stageId?: SortOrder
+    createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -23847,9 +24015,11 @@ export namespace Prisma {
     location?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    notes?: SortOrder
     candidateId?: SortOrder
     positionId?: SortOrder
     stageId?: SortOrder
+    createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24197,6 +24367,13 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
+  export type InterviewCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput> | InterviewCreateWithoutCreatedByInput[] | InterviewUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: InterviewCreateOrConnectWithoutCreatedByInput | InterviewCreateOrConnectWithoutCreatedByInput[]
+    createMany?: InterviewCreateManyCreatedByInputEnvelope
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24249,6 +24426,13 @@ export namespace Prisma {
     connectOrCreate?: FeedbackCreateOrConnectWithoutInterviewerInput | FeedbackCreateOrConnectWithoutInterviewerInput[]
     createMany?: FeedbackCreateManyInterviewerInputEnvelope
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+  }
+
+  export type InterviewUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput> | InterviewCreateWithoutCreatedByInput[] | InterviewUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: InterviewCreateOrConnectWithoutCreatedByInput | InterviewCreateOrConnectWithoutCreatedByInput[]
+    createMany?: InterviewCreateManyCreatedByInputEnvelope
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -24382,6 +24566,20 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
+  export type InterviewUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput> | InterviewCreateWithoutCreatedByInput[] | InterviewUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: InterviewCreateOrConnectWithoutCreatedByInput | InterviewCreateOrConnectWithoutCreatedByInput[]
+    upsert?: InterviewUpsertWithWhereUniqueWithoutCreatedByInput | InterviewUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: InterviewCreateManyCreatedByInputEnvelope
+    set?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    disconnect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    delete?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    update?: InterviewUpdateWithWhereUniqueWithoutCreatedByInput | InterviewUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: InterviewUpdateManyWithWhereWithoutCreatedByInput | InterviewUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: InterviewScalarWhereInput | InterviewScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24487,6 +24685,20 @@ export namespace Prisma {
     update?: FeedbackUpdateWithWhereUniqueWithoutInterviewerInput | FeedbackUpdateWithWhereUniqueWithoutInterviewerInput[]
     updateMany?: FeedbackUpdateManyWithWhereWithoutInterviewerInput | FeedbackUpdateManyWithWhereWithoutInterviewerInput[]
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+  }
+
+  export type InterviewUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput> | InterviewCreateWithoutCreatedByInput[] | InterviewUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: InterviewCreateOrConnectWithoutCreatedByInput | InterviewCreateOrConnectWithoutCreatedByInput[]
+    upsert?: InterviewUpsertWithWhereUniqueWithoutCreatedByInput | InterviewUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: InterviewCreateManyCreatedByInputEnvelope
+    set?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    disconnect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    delete?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    connect?: InterviewWhereUniqueInput | InterviewWhereUniqueInput[]
+    update?: InterviewUpdateWithWhereUniqueWithoutCreatedByInput | InterviewUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: InterviewUpdateManyWithWhereWithoutCreatedByInput | InterviewUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: InterviewScalarWhereInput | InterviewScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -24900,6 +25112,12 @@ export namespace Prisma {
     connect?: StageWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutCreatedInterviewsInput = {
+    create?: XOR<UserCreateWithoutCreatedInterviewsInput, UserUncheckedCreateWithoutCreatedInterviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedInterviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type UserUncheckedCreateNestedManyWithoutConductedInterviewsInput = {
     create?: XOR<UserCreateWithoutConductedInterviewsInput, UserUncheckedCreateWithoutConductedInterviewsInput> | UserCreateWithoutConductedInterviewsInput[] | UserUncheckedCreateWithoutConductedInterviewsInput[]
     connectOrCreate?: UserCreateOrConnectWithoutConductedInterviewsInput | UserCreateOrConnectWithoutConductedInterviewsInput[]
@@ -24972,6 +25190,14 @@ export namespace Prisma {
     delete?: StageWhereInput | boolean
     connect?: StageWhereUniqueInput
     update?: XOR<XOR<StageUpdateToOneWithWhereWithoutInterviewsInput, StageUpdateWithoutInterviewsInput>, StageUncheckedUpdateWithoutInterviewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedInterviewsInput, UserUncheckedCreateWithoutCreatedInterviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedInterviewsInput
+    upsert?: UserUpsertWithoutCreatedInterviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedInterviewsInput, UserUpdateWithoutCreatedInterviewsInput>, UserUncheckedUpdateWithoutCreatedInterviewsInput>
   }
 
   export type UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput = {
@@ -25670,6 +25896,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -25690,6 +25918,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     reviewedById?: string | null
     createdAt?: Date | string
@@ -25718,6 +25948,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -25738,6 +25970,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     createdAt?: Date | string
@@ -25766,6 +26000,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -25786,6 +26022,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     managedById?: string | null
     reviewedById?: string | null
     createdAt?: Date | string
@@ -25814,12 +26052,14 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     candidate: CandidateCreateNestedOneWithoutInterviewsInput
     position: PositionCreateNestedOneWithoutInterviewsInput
     feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
     stage?: StageCreateNestedOneWithoutInterviewsInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateWithoutInterviewersInput = {
@@ -25830,9 +26070,11 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewInput
@@ -25874,6 +26116,52 @@ export namespace Prisma {
 
   export type FeedbackCreateManyInterviewerInputEnvelope = {
     data: FeedbackCreateManyInterviewerInput | FeedbackCreateManyInterviewerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InterviewCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    type?: $Enums.InterviewType
+    status?: $Enums.InterviewStatus
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    candidate: CandidateCreateNestedOneWithoutInterviewsInput
+    position: PositionCreateNestedOneWithoutInterviewsInput
+    interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
+    feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
+    stage?: StageCreateNestedOneWithoutInterviewsInput
+  }
+
+  export type InterviewUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    type?: $Enums.InterviewType
+    status?: $Enums.InterviewStatus
+    notes?: string | null
+    candidateId: string
+    positionId: string
+    stageId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewInput
+  }
+
+  export type InterviewCreateOrConnectWithoutCreatedByInput = {
+    where: InterviewWhereUniqueInput
+    create: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type InterviewCreateManyCreatedByInputEnvelope = {
+    data: InterviewCreateManyCreatedByInput | InterviewCreateManyCreatedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -25984,6 +26272,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFilter<"Candidate"> | $Enums.CandidateStatus
     source?: StringNullableFilter<"Candidate"> | string | null
     positionId?: StringNullableFilter<"Candidate"> | string | null
+    isActive?: BoolFilter<"Candidate"> | boolean
+    isArchived?: BoolFilter<"Candidate"> | boolean
     createdById?: StringFilter<"Candidate"> | string
     managedById?: StringNullableFilter<"Candidate"> | string | null
     reviewedById?: StringNullableFilter<"Candidate"> | string | null
@@ -26050,9 +26340,11 @@ export namespace Prisma {
     location?: StringNullableFilter<"Interview"> | string | null
     type?: EnumInterviewTypeFilter<"Interview"> | $Enums.InterviewType
     status?: EnumInterviewStatusFilter<"Interview"> | $Enums.InterviewStatus
+    notes?: StringNullableFilter<"Interview"> | string | null
     candidateId?: StringFilter<"Interview"> | string
     positionId?: StringFilter<"Interview"> | string
     stageId?: StringNullableFilter<"Interview"> | string | null
+    createdById?: StringFilter<"Interview"> | string
     createdAt?: DateTimeFilter<"Interview"> | Date | string
     updatedAt?: DateTimeFilter<"Interview"> | Date | string
   }
@@ -26088,6 +26380,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Feedback"> | Date | string
   }
 
+  export type InterviewUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: InterviewWhereUniqueInput
+    update: XOR<InterviewUpdateWithoutCreatedByInput, InterviewUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<InterviewCreateWithoutCreatedByInput, InterviewUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type InterviewUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: InterviewWhereUniqueInput
+    data: XOR<InterviewUpdateWithoutCreatedByInput, InterviewUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type InterviewUpdateManyWithWhereWithoutCreatedByInput = {
+    where: InterviewScalarWhereInput
+    data: XOR<InterviewUpdateManyMutationInput, InterviewUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -26106,6 +26414,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -26126,6 +26435,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -26162,6 +26472,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -26182,6 +26493,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -26202,6 +26514,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -26222,6 +26535,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -26258,6 +26572,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -26278,6 +26593,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutTwoFactorConfirmationInput = {
@@ -26298,6 +26614,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTwoFactorConfirmationInput = {
@@ -26318,6 +26635,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTwoFactorConfirmationInput = {
@@ -26354,6 +26672,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTwoFactorConfirmationInput = {
@@ -26374,6 +26693,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type PositionCreateWithoutCandidatesInput = {
@@ -26411,12 +26731,14 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     position: PositionCreateNestedOneWithoutInterviewsInput
     interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
     feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
     stage?: StageCreateNestedOneWithoutInterviewsInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateWithoutCandidateInput = {
@@ -26427,8 +26749,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
@@ -26536,6 +26860,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateCreateNestedManyWithoutReviewedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedCandidatesInput = {
@@ -26556,6 +26881,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedCreateNestedManyWithoutReviewedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedCandidatesInput = {
@@ -26581,6 +26907,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutManagedCandidatesInput = {
@@ -26601,6 +26928,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutManagedCandidatesInput = {
@@ -26626,6 +26954,7 @@ export namespace Prisma {
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutReviewedCandidatesInput = {
@@ -26646,6 +26975,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutReviewedCandidatesInput = {
@@ -26798,6 +27128,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUpdateManyWithoutReviewedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedCandidatesInput = {
@@ -26818,6 +27149,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedUpdateManyWithoutReviewedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutManagedCandidatesInput = {
@@ -26849,6 +27181,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutManagedCandidatesInput = {
@@ -26869,6 +27202,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutReviewedCandidatesInput = {
@@ -26900,6 +27234,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedCandidatesInput = {
@@ -26920,6 +27255,7 @@ export namespace Prisma {
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type WorkflowCreateWithoutPositionsInput = {
@@ -26955,6 +27291,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interviews?: InterviewCreateNestedManyWithoutCandidateInput
@@ -26974,6 +27312,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -27003,12 +27343,14 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     candidate: CandidateCreateNestedOneWithoutInterviewsInput
     interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
     feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
     stage?: StageCreateNestedOneWithoutInterviewsInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateWithoutPositionInput = {
@@ -27019,8 +27361,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
@@ -27108,6 +27452,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -27128,6 +27474,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -27188,6 +27536,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateCreateNestedManyWithoutReviewedByInput
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConductedInterviewsInput = {
@@ -27208,6 +27557,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedCreateNestedManyWithoutReviewedByInput
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConductedInterviewsInput = {
@@ -27274,6 +27624,53 @@ export namespace Prisma {
     create: XOR<StageCreateWithoutInterviewsInput, StageUncheckedCreateWithoutInterviewsInput>
   }
 
+  export type UserCreateWithoutCreatedInterviewsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationCreateNestedOneWithoutUserInput
+    managedCandidates?: CandidateCreateNestedManyWithoutManagedByInput
+    reviewedCandidates?: CandidateCreateNestedManyWithoutReviewedByInput
+    createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
+    conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
+    providedFeedbacks?: FeedbackCreateNestedManyWithoutInterviewerInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedInterviewsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isTwoFactorEnabled?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedCreateNestedOneWithoutUserInput
+    managedCandidates?: CandidateUncheckedCreateNestedManyWithoutManagedByInput
+    reviewedCandidates?: CandidateUncheckedCreateNestedManyWithoutReviewedByInput
+    createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
+    conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
+    providedFeedbacks?: FeedbackUncheckedCreateNestedManyWithoutInterviewerInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedInterviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedInterviewsInput, UserUncheckedCreateWithoutCreatedInterviewsInput>
+  }
+
   export type CandidateUpsertWithoutInterviewsInput = {
     update: XOR<CandidateUpdateWithoutInterviewsInput, CandidateUncheckedUpdateWithoutInterviewsInput>
     create: XOR<CandidateCreateWithoutInterviewsInput, CandidateUncheckedCreateWithoutInterviewsInput>
@@ -27293,6 +27690,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -27313,6 +27712,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27435,6 +27836,59 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutCreatedInterviewsInput = {
+    update: XOR<UserUpdateWithoutCreatedInterviewsInput, UserUncheckedUpdateWithoutCreatedInterviewsInput>
+    create: XOR<UserCreateWithoutCreatedInterviewsInput, UserUncheckedCreateWithoutCreatedInterviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedInterviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedInterviewsInput, UserUncheckedUpdateWithoutCreatedInterviewsInput>
+  }
+
+  export type UserUpdateWithoutCreatedInterviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUpdateOneWithoutUserNestedInput
+    managedCandidates?: CandidateUpdateManyWithoutManagedByNestedInput
+    reviewedCandidates?: CandidateUpdateManyWithoutReviewedByNestedInput
+    createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
+    conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
+    providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedInterviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    twoFactorConfirmation?: TwoFactorConfirmationUncheckedUpdateOneWithoutUserNestedInput
+    managedCandidates?: CandidateUncheckedUpdateManyWithoutManagedByNestedInput
+    reviewedCandidates?: CandidateUncheckedUpdateManyWithoutReviewedByNestedInput
+    createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
+    conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
+    providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+  }
+
   export type InterviewCreateWithoutFeedbacksInput = {
     id?: string
     title: string
@@ -27443,12 +27897,14 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     candidate: CandidateCreateNestedOneWithoutInterviewsInput
     position: PositionCreateNestedOneWithoutInterviewsInput
     interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
     stage?: StageCreateNestedOneWithoutInterviewsInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateWithoutFeedbacksInput = {
@@ -27459,9 +27915,11 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
@@ -27480,6 +27938,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -27500,6 +27960,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -27533,6 +27995,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateCreateNestedManyWithoutReviewedByInput
     createdCandidates?: CandidateCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewCreateNestedManyWithoutInterviewersInput
+    createdInterviews?: InterviewCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutProvidedFeedbacksInput = {
@@ -27553,6 +28016,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedCreateNestedManyWithoutReviewedByInput
     createdCandidates?: CandidateUncheckedCreateNestedManyWithoutCreatedByInput
     conductedInterviews?: InterviewUncheckedCreateNestedManyWithoutInterviewersInput
+    createdInterviews?: InterviewUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutProvidedFeedbacksInput = {
@@ -27603,12 +28067,14 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
     position?: PositionUpdateOneRequiredWithoutInterviewsNestedInput
     interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
     stage?: StageUpdateOneWithoutInterviewsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateWithoutFeedbacksInput = {
@@ -27619,9 +28085,11 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
@@ -27646,6 +28114,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -27666,6 +28136,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27705,6 +28177,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUpdateManyWithoutReviewedByNestedInput
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUpdateManyWithoutInterviewersNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProvidedFeedbacksInput = {
@@ -27725,6 +28198,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedUpdateManyWithoutReviewedByNestedInput
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     conductedInterviews?: InterviewUncheckedUpdateManyWithoutInterviewersNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type SkillAssessmentUpsertWithWhereUniqueWithoutFeedbackInput = {
@@ -27971,12 +28445,14 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     candidate: CandidateCreateNestedOneWithoutInterviewsInput
     position: PositionCreateNestedOneWithoutInterviewsInput
     interviewers?: UserCreateNestedManyWithoutConductedInterviewsInput
     feedbacks?: FeedbackCreateNestedManyWithoutInterviewInput
+    createdBy: UserCreateNestedOneWithoutCreatedInterviewsInput
   }
 
   export type InterviewUncheckedCreateWithoutStageInput = {
@@ -27987,8 +28463,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
     interviewers?: UserUncheckedCreateNestedManyWithoutConductedInterviewsInput
@@ -28060,6 +28538,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -28080,6 +28560,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -28119,6 +28601,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     position?: PositionCreateNestedOneWithoutCandidatesInput
@@ -28139,6 +28623,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -28173,6 +28659,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -28193,6 +28681,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28232,6 +28722,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     reviewedById?: string | null
     createdAt?: Date | string
@@ -28247,6 +28739,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     createdAt?: Date | string
@@ -28262,6 +28756,8 @@ export namespace Prisma {
     status?: $Enums.CandidateStatus
     source?: string | null
     positionId?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     managedById?: string | null
     reviewedById?: string | null
     createdAt?: Date | string
@@ -28275,6 +28771,22 @@ export namespace Prisma {
     comment?: string | null
     interviewId: string
     candidateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InterviewCreateManyCreatedByInput = {
+    id?: string
+    title: string
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    type?: $Enums.InterviewType
+    status?: $Enums.InterviewStatus
+    notes?: string | null
+    candidateId: string
+    positionId: string
+    stageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28347,6 +28859,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -28367,6 +28881,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28386,6 +28902,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28400,6 +28918,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -28420,6 +28940,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28439,6 +28961,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28453,6 +28977,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -28473,6 +28999,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28492,6 +29020,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28506,12 +29036,14 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
     position?: PositionUpdateOneRequiredWithoutInterviewsNestedInput
     feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
     stage?: StageUpdateOneWithoutInterviewsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateWithoutInterviewersInput = {
@@ -28522,9 +29054,11 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     feedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewNestedInput
@@ -28538,9 +29072,11 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28580,6 +29116,58 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InterviewUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
+    status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
+    position?: PositionUpdateOneRequiredWithoutInterviewsNestedInput
+    interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
+    stage?: StageUpdateOneWithoutInterviewsNestedInput
+  }
+
+  export type InterviewUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
+    status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    candidateId?: StringFieldUpdateOperationsInput | string
+    positionId?: StringFieldUpdateOperationsInput | string
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewNestedInput
+  }
+
+  export type InterviewUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
+    status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    candidateId?: StringFieldUpdateOperationsInput | string
+    positionId?: StringFieldUpdateOperationsInput | string
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InterviewCreateManyCandidateInput = {
     id?: string
     title: string
@@ -28588,8 +29176,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     positionId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28620,12 +29210,14 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneRequiredWithoutInterviewsNestedInput
     interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
     feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
     stage?: StageUpdateOneWithoutInterviewsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateWithoutCandidateInput = {
@@ -28636,8 +29228,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
@@ -28652,8 +29246,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28737,6 +29333,8 @@ export namespace Prisma {
     resumeUrl?: string | null
     status?: $Enums.CandidateStatus
     source?: string | null
+    isActive?: boolean
+    isArchived?: boolean
     createdById: string
     managedById?: string | null
     reviewedById?: string | null
@@ -28752,8 +29350,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     stageId?: string | null
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28766,6 +29366,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviews?: InterviewUpdateManyWithoutCandidateNestedInput
@@ -28785,6 +29387,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28804,6 +29408,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28819,12 +29425,14 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
     interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
     feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
     stage?: StageUpdateOneWithoutInterviewsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateWithoutPositionInput = {
@@ -28835,8 +29443,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
@@ -28851,8 +29461,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28886,6 +29498,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUpdateManyWithoutReviewedByNestedInput
     createdCandidates?: CandidateUpdateManyWithoutCreatedByNestedInput
     providedFeedbacks?: FeedbackUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConductedInterviewsInput = {
@@ -28906,6 +29519,7 @@ export namespace Prisma {
     reviewedCandidates?: CandidateUncheckedUpdateManyWithoutReviewedByNestedInput
     createdCandidates?: CandidateUncheckedUpdateManyWithoutCreatedByNestedInput
     providedFeedbacks?: FeedbackUncheckedUpdateManyWithoutInterviewerNestedInput
+    createdInterviews?: InterviewUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutConductedInterviewsInput = {
@@ -29070,8 +29684,10 @@ export namespace Prisma {
     location?: string | null
     type?: $Enums.InterviewType
     status?: $Enums.InterviewStatus
+    notes?: string | null
     candidateId: string
     positionId: string
+    createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29084,12 +29700,14 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     candidate?: CandidateUpdateOneRequiredWithoutInterviewsNestedInput
     position?: PositionUpdateOneRequiredWithoutInterviewsNestedInput
     interviewers?: UserUpdateManyWithoutConductedInterviewsNestedInput
     feedbacks?: FeedbackUpdateManyWithoutInterviewNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedInterviewsNestedInput
   }
 
   export type InterviewUncheckedUpdateWithoutStageInput = {
@@ -29100,8 +29718,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interviewers?: UserUncheckedUpdateManyWithoutConductedInterviewsNestedInput
@@ -29116,8 +29736,10 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumInterviewTypeFieldUpdateOperationsInput | $Enums.InterviewType
     status?: EnumInterviewStatusFieldUpdateOperationsInput | $Enums.InterviewStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     candidateId?: StringFieldUpdateOperationsInput | string
     positionId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29130,6 +29752,8 @@ export namespace Prisma {
     resumeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     position?: PositionUpdateOneWithoutCandidatesNestedInput
@@ -29150,6 +29774,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29169,6 +29795,8 @@ export namespace Prisma {
     status?: EnumCandidateStatusFieldUpdateOperationsInput | $Enums.CandidateStatus
     source?: NullableStringFieldUpdateOperationsInput | string | null
     positionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
     createdById?: StringFieldUpdateOperationsInput | string
     managedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null

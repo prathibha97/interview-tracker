@@ -112,6 +112,8 @@ model Candidate {
   source     String?
   position   Position?       @relation(fields: [positionId], references: [id])
   positionId String?
+  isActive   Boolean         @default(true)
+  isArchived Boolean         @default(false)
 
   // Relations
   interviews Interview[]
@@ -152,6 +154,7 @@ model Interview {
   location  String? // Can be URL for virtual interviews
   type      InterviewType   @default(TECHNICAL)
   status    InterviewStatus @default(SCHEDULED)
+  notes     String?         @db.Text
 
   // Relations
   candidate    Candidate  @relation(fields: [candidateId], references: [id])
