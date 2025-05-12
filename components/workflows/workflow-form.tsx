@@ -29,7 +29,7 @@ import { Workflow } from '@/lib/generated/prisma';
 const workflowSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   description: z.string().optional().nullable(),
-  isDefault: z.boolean().default(false),
+  isDefault: z.boolean(),
 });
 
 type WorkflowFormValues = z.infer<typeof workflowSchema>;

@@ -36,7 +36,7 @@ const positionSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   department: z.string().optional().nullish(),
   workflowId: z.string().optional().nullish(),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean(),
 });
 
 type PositionFormValues = z.infer<typeof positionSchema>;

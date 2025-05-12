@@ -1,18 +1,17 @@
 // app/(dashboard)/dashboard/candidates/[id]/page.tsx
 
-import { redirect, notFound } from 'next/navigation';
-import Link from 'next/link';
-import { auth } from '@/auth';
-import { getCandidateById } from '@/data/candidate';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { CandidateFeedback } from '@/components/candidates/candidate-feedback';
 import { CandidateInfo } from '@/components/candidates/candidate-info';
 import { CandidateInterviews } from '@/components/candidates/candidate-interviews';
-import { CandidateFeedback } from '@/components/candidates/candidate-feedback';
 import { CandidateNotes } from '@/components/candidates/candidate-notes';
 import { CandidateStatusUpdate } from '@/components/candidates/candidate-status-update';
-import { PencilIcon, TrashIcon, CalendarIcon } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getCandidateById } from '@/data/candidate';
+import { CalendarIcon, PencilIcon, TrashIcon } from 'lucide-react';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface CandidateDetailsPageProps {
   params: {

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { PositionForm } from '@/components/positions/position-form';
 import { UserRole } from '@/lib/generated/prisma';
+import { db } from '@/lib/db';
 
 export default async function NewPositionPage() {
   const session = await auth();
@@ -20,6 +21,12 @@ export default async function NewPositionPage() {
     redirect('/dashboard');
   }
 
+  const workflows = await db.workflow.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  });
+
   return (
     <div className='space-y-6'>
       <div>
@@ -30,7 +37,7 @@ export default async function NewPositionPage() {
       </div>
 
       <div className='rounded-md border p-6 bg-white'>
-        <PositionForm />
+        <PositionForm workflows={workflows} />
       </div>
     </div>
   );

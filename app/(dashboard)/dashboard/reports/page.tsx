@@ -86,7 +86,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
 
       <ReportFilters
         positions={positions}
-        sources={sources}
+        sources={sources as string[]}
         activeFilters={filters}
       />
 

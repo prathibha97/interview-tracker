@@ -33,8 +33,8 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 const settingsSchema = z.object({
   companyName: z.string().min(1, 'Company name is required'),
   companyLogo: z.string().optional().nullable(),
-  emailNotifications: z.boolean().default(true),
-  feedbackReminders: z.boolean().default(true),
+  emailNotifications: z.boolean(),
+  feedbackReminders: z.boolean(),
   defaultInterviewLength: z.coerce
     .number()
     .int()

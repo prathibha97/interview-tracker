@@ -36,7 +36,7 @@ export default async function FeedbackPage() {
       </div>
 
       <Suspense fallback={<div>Loading feedback...</div>}>
-        <FeedbackList userId={session.user.id} />
+        <FeedbackList userId={session.user.id!} />
       </Suspense>
     </div>
   );
