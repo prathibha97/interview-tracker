@@ -48,3 +48,62 @@ export async function createUser({
     },
   });
 }
+
+export async function updateUser(id: string, data: any) {
+  try {
+    // If password is being updated, hash it
+    const updateData = { ...data };
+
+    if (updateData.password) {
+      updateData.password = await bcrypt.hash(updateData.password, 10);
+    }
+
+    const user = await db.user.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return user;
+  } catch (error) {
+    console.error('Failed to update user:', error);
+    throw error;
+  }
+}
+
+export async function deleteUser(id: string) {
+  try {
+    await db.user.delete({
+      where: { id },
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Failed to delete user:', error);
+    throw error;
+  }
+}
+
+export async function getUsers({ includeAdmins = false } = {}) {
+  try {
+    // By default, exclude admin users for safety
+    const where = includeAdmins
+      ? {}
+      : {
+          role: {
+            not: UserRole.ADMIN,
+          },
+        };
+
+    const users = await db.user.findMany({
+      where,
+      orderBy: {
+        name: 'asc',
+      },
+    });
+
+    return users;
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    return [];
+  }
+}
