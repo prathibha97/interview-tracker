@@ -7,15 +7,16 @@ import { PositionForm } from '@/components/positions/position-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface EditPositionPageProps {
-  params: {
+  params: Promise<{
     positionId: string;
-  };
+  }>;
 }
 
 export default async function EditPositionPage({
   params,
 }: EditPositionPageProps) {
   const session = await auth();
+  const { positionId } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -31,7 +32,7 @@ export default async function EditPositionPage({
 
   // Fetch the position
   const position = await db.position.findUnique({
-    where: { id: params.positionId },
+    where: { id: positionId },
   });
 
   if (!position) {

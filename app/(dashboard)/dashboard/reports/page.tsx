@@ -7,13 +7,13 @@ import { UserRole } from '@/lib/generated/prisma';
 import { ReportsClient } from '@/components/reports/reports-client';
 
 interface ReportsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     startDate?: string;
     endDate?: string;
     positionId?: string;
     source?: string;
     tab?: string;
-  };
+  }>;
 }
 
 export default async function ReportsPage({ searchParams }: ReportsPageProps) {
@@ -54,8 +54,8 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
   return (
     <ReportsClient
       positions={positions}
-      sources={sources}
-      searchParams={searchParams}
+      sources={sources as string[]}
+      searchParams={await searchParams}
     />
   );
 }

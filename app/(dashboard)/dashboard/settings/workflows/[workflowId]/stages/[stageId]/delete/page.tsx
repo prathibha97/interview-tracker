@@ -9,16 +9,17 @@ import { StageDeleteForm } from '@/components/workflows/stage-delete-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface DeleteStagePageProps {
-  params: {
+  params: Promise<{
     workflowId: string;
     stageId: string;
-  };
+  }>;
 }
 
 export default async function DeleteStagePage({
   params,
 }: DeleteStagePageProps) {
   const session = await auth();
+  const { workflowId, stageId } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -32,8 +33,8 @@ export default async function DeleteStagePage({
   // Get the stage and workflow
   const stage = await db.stage.findUnique({
     where: {
-      id: params.stageId,
-      workflowId: params.workflowId,
+      id: stageId,
+      workflowId: workflowId,
     },
     include: {
       workflow: true,
@@ -89,13 +90,13 @@ export default async function DeleteStagePage({
           </div>
 
           <StageDeleteForm
-            stageId={params.stageId}
-            workflowId={params.workflowId}
+            stageId={stageId}
+            workflowId={workflowId}
           />
 
           <div className='flex justify-end'>
             <Button variant='outline' asChild>
-              <Link href={`/dashboard/settings/workflows/${params.workflowId}`}>
+              <Link href={`/dashboard/settings/workflows/${workflowId}`}>
                 Cancel
               </Link>
             </Button>

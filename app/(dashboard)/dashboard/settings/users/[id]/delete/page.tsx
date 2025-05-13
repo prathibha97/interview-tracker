@@ -9,13 +9,14 @@ import { UserDeleteForm } from '@/components/users/user-delete-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface DeleteUserPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function DeleteUserPage({ params }: DeleteUserPageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -26,7 +27,7 @@ export default async function DeleteUserPage({ params }: DeleteUserPageProps) {
     redirect('/dashboard');
   }
 
-  const user = await getUserById(params.id);
+  const user = await getUserById(id);
 
   if (!user) {
     notFound();

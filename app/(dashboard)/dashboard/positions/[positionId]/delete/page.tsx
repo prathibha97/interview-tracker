@@ -9,15 +9,16 @@ import { PositionDeleteForm } from '@/components/positions/position-delete-form'
 import { UserRole } from '@/lib/generated/prisma';
 
 interface DeletePositionPageProps {
-  params: {
+  params: Promise<{
     positionId: string;
-  };
+  }>;
 }
 
 export default async function DeletePositionPage({
   params,
 }: DeletePositionPageProps) {
   const session = await auth();
+  const { positionId } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -33,7 +34,7 @@ export default async function DeletePositionPage({
 
   // Fetch the position
   const position = await db.position.findUnique({
-    where: { id: params.positionId },
+    where: { id: positionId },
     include: {
       workflow: true,
     },

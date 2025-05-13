@@ -7,15 +7,17 @@ import { WorkflowForm } from '@/components/workflows/workflow-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface EditWorkflowPageProps {
-  params: {
+  params: Promise<{
     workflowId: string;
-  };
+  }>;
 }
 
 export default async function EditWorkflowPage({
   params,
 }: EditWorkflowPageProps) {
   const session = await auth();
+  const { workflowId } = await params;
+
 
   if (!session || !session.user) {
     redirect('/login');
@@ -26,7 +28,7 @@ export default async function EditWorkflowPage({
     redirect('/dashboard');
   }
 
-  const workflow = await getWorkflowById(params.workflowId);
+  const workflow = await getWorkflowById(workflowId);
 
   if (!workflow) {
     notFound();

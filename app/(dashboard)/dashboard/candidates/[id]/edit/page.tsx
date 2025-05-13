@@ -6,21 +6,20 @@ import { getCandidateById } from '@/data/candidate';
 import { CandidateForm } from '@/components/candidates/candidate-form';
 
 interface EditCandidatePageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditCandidatePage({
   params,
 }: EditCandidatePageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const candidate = await getCandidateById(params.id);
+  const candidate = await getCandidateById(id);
 
   if (!candidate) {
     notFound();

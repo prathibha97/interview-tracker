@@ -12,21 +12,20 @@ import { PencilIcon, TrashIcon, ClipboardIcon } from 'lucide-react';
 import { InterviewStatus } from '@/lib/generated/prisma';
 
 interface InterviewDetailPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function InterviewDetailPage({
   params,
 }: InterviewDetailPageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const interview = await getInterviewById(params.id);
+  const interview = await getInterviewById(id);
 
   if (!interview) {
     notFound();

@@ -7,13 +7,15 @@ import { UserForm } from '@/components/users/user-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface EditUserPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditUserPage({ params }: EditUserPageProps) {
   const session = await auth();
+  const { id } = await params;
+
 
   if (!session || !session.user) {
     redirect('/login');
@@ -24,7 +26,7 @@ export default async function EditUserPage({ params }: EditUserPageProps) {
     redirect('/dashboard');
   }
 
-  const user = await getUserById(params.id);
+  const user = await getUserById(id);
 
   if (!user) {
     notFound();

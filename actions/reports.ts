@@ -32,8 +32,8 @@ function sanitizeFilters(filters: ReportFilters = {}): ReportFilters {
         ? filters.source
         : undefined,
     minInterviews:
-      filters.minInterviews && filters.minInterviews !== '$undefined'
-        ? filters.minInterviews
+      filters.minInterviews && String(filters.minInterviews) !== '$undefined'
+        ? Number(filters.minInterviews)
         : undefined,
   };
 }

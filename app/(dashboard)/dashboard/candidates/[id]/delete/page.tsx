@@ -7,22 +7,22 @@ import { getCandidateById } from '@/data/candidate';
 import { Button } from '@/components/ui/button';
 import { CandidateDeleteForm } from '@/components/candidates/candidate-delete-form';
 
-interface DeleteCandidatePageProps {
-  params: {
-    id: string;
-  };
+// Define the props type according to Next.js 15 standards
+interface PageProps {
+  params: Promise<{ id: string }>;
 }
 
-export default async function DeleteCandidatePage({
-  params,
-}: DeleteCandidatePageProps) {
+export default async function DeleteCandidatePage({ params }: PageProps) {
   const session = await auth();
+
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const candidate = await getCandidateById(params.id);
+  // No need to await params anymore - it's already a resolved value in Next.js 15
+  const candidate = await getCandidateById(id);
 
   if (!candidate) {
     notFound();

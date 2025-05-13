@@ -7,14 +7,15 @@ import { StageForm } from '@/components/workflows/stage-form';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface EditStagePageProps {
-  params: {
+  params: Promise<{
     workflowId: string;
     stageId: string;
-  };
+  }>;
 }
 
 export default async function EditStagePage({ params }: EditStagePageProps) {
   const session = await auth();
+  const { workflowId, stageId } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -28,8 +29,8 @@ export default async function EditStagePage({ params }: EditStagePageProps) {
   // Get the workflow and stage
   const stage = await db.stage.findUnique({
     where: {
-      id: params.stageId,
-      workflowId: params.workflowId,
+      id: stageId,
+      workflowId: workflowId,
     },
     include: {
       workflow: true,
@@ -50,7 +51,7 @@ export default async function EditStagePage({ params }: EditStagePageProps) {
       </div>
 
       <div className='rounded-md border p-6 bg-white'>
-        <StageForm stage={stage} workflowId={params.workflowId} isEdit />
+        <StageForm stage={stage} workflowId={workflowId} isEdit />
       </div>
     </div>
   );

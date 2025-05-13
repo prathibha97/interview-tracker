@@ -11,13 +11,14 @@ import { getWorkflowById } from '@/data/workflow';
 import { UserRole } from '@/lib/generated/prisma';
 
 interface WorkflowPageProps {
-  params: {
-    workflowId: string; // Changed from id to workflowId
-  };
+  params: Promise<{
+    workflowId: string;
+  }>;
 }
 
 export default async function WorkflowPage({ params }: WorkflowPageProps) {
   const session = await auth();
+  const { workflowId } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -28,7 +29,7 @@ export default async function WorkflowPage({ params }: WorkflowPageProps) {
     redirect('/dashboard');
   }
 
-  const workflow = await getWorkflowById(params.workflowId); // Changed from id to workflowId
+  const workflow = await getWorkflowById(workflowId); // Changed from id to workflowId
 
   if (!workflow) {
     notFound();

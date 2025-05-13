@@ -7,21 +7,20 @@ import { FeedbackForm } from '@/components/feedback/feedback-form';
 import { InterviewStatus } from '@/lib/generated/prisma';
 
 interface NewFeedbackPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function NewFeedbackPage({
   params,
 }: NewFeedbackPageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const interview = await getInterviewById(params.id);
+  const interview = await getInterviewById(id);
 
   if (!interview) {
     notFound();
@@ -29,7 +28,7 @@ export default async function NewFeedbackPage({
 
   // Ensure the interview is completed
   if (interview.status !== InterviewStatus.COMPLETED) {
-    redirect(`/dashboard/interviews/${params.id}`);
+    redirect(`/dashboard/interviews/${id}`);
   }
 
   // Check if the current user is an interviewer for this interview
@@ -38,7 +37,7 @@ export default async function NewFeedbackPage({
   );
 
   if (!isInterviewer) {
-    redirect(`/dashboard/interviews/${params.id}`);
+    redirect(`/dashboard/interviews/${id}`);
   }
 
   // Check if the user has already submitted feedback
@@ -47,7 +46,7 @@ export default async function NewFeedbackPage({
   );
 
   if (hasSubmittedFeedback) {
-    redirect(`/dashboard/interviews/${params.id}`);
+    redirect(`/dashboard/interviews/${id}`);
   }
 
   return (

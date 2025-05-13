@@ -1,39 +1,40 @@
 // app/(dashboard)/dashboard/interviews/page.tsx
 
-import { Suspense } from 'react';
-import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { PlusIcon } from 'lucide-react';
+import { InterviewsFilters } from '@/components/interviews/interviews-filters';
 import { InterviewsList } from '@/components/interviews/interviews-list';
 import { InterviewsSearch } from '@/components/interviews/interviews-search';
-import { InterviewsFilters } from '@/components/interviews/interviews-filters';
+import { Button } from '@/components/ui/button';
+import { PlusIcon } from 'lucide-react';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
 interface InterviewsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     search?: string;
     status?: string;
     type?: string;
     date?: string;
-  };
+  }>;
 }
 
 export default async function InterviewsPage({
   searchParams,
 }: InterviewsPageProps) {
   const session = await auth();
+  const awaitedParams = await searchParams;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const page = Number(searchParams.page) || 1;
-  const search = searchParams.search || '';
-  const status = searchParams.status || '';
-  const type = searchParams.type || '';
-  const date = searchParams.date || '';
+  const page = Number(awaitedParams.page) || 1;
+  const search = awaitedParams.search || '';
+  const status = awaitedParams.status || '';
+  const type = awaitedParams.type || '';
+  const date = awaitedParams.date || '';
 
   return (
     <div className='space-y-6'>

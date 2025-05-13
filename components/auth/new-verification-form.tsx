@@ -5,12 +5,12 @@ import { CardWrapper } from '@/components/auth/card-wrapper';
 import { FormError } from '@/components/ui/form-error';
 import { FormSuccess } from '@/components/ui/form-success';
 import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, Suspense } from 'react';
 import { BeatLoader } from 'react-spinners';
 
-const NewVerificationForm = ({}) => {
+// This component will handle the actual verification logic
+function VerificationContent() {
   const searchparams = useSearchParams();
-
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
@@ -35,17 +35,36 @@ const NewVerificationForm = ({}) => {
   useEffect(() => {
     onSubmit();
   }, [onSubmit]);
+
+  return (
+    <div className='flex items-center w-full justify-center'>
+      {!success && !error && <BeatLoader />}
+      <FormSuccess message={success} />
+      {!success && <FormError message={error} />}
+    </div>
+  );
+}
+
+// This is a fallback loading state while the Suspense is resolving
+function VerificationLoading() {
+  return (
+    <div className='flex items-center w-full justify-center'>
+      <BeatLoader />
+    </div>
+  );
+}
+
+// Main component with Suspense boundary
+const NewVerificationForm = ({}) => {
   return (
     <CardWrapper
       headerLabel='Confirming your verification'
       backButtonLabel='Back to login'
       backButtonHref='/login'
     >
-      <div className='flex items-center w-full justify-center'>
-        {!success && !error && <BeatLoader />}
-        <FormSuccess message={success} />
-        {!success && <FormError message={error} />}
-      </div>
+      <Suspense fallback={<VerificationLoading />}>
+        <VerificationContent />
+      </Suspense>
     </CardWrapper>
   );
 };

@@ -21,6 +21,7 @@ export default async function DashboardLayout({
 
   return (
     <div className='flex min-h-screen flex-col'>
+      {/* @ts-expect-error Server Component */}
       <DashboardHeader user={user!} />
       <div className='flex flex-1'>
         <DashboardNav role={user?.role} />

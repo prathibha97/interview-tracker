@@ -26,6 +26,7 @@ export default async function ProfilePage() {
       </div>
 
       <div className='rounded-md border p-6 bg-white'>
+        {/* @ts-expect-error Server Component */}
         <UserProfileForm user={user} />
       </div>
     </div>

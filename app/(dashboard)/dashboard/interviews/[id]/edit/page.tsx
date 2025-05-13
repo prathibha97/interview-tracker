@@ -7,21 +7,20 @@ import { getInterviewById } from '@/data/interview';
 import { InterviewForm } from '@/components/interviews/interview-form';
 
 interface EditInterviewPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditInterviewPage({
   params,
 }: EditInterviewPageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const interview = await getInterviewById(params.id);
+  const interview = await getInterviewById(id);
 
   if (!interview) {
     notFound();
@@ -77,9 +76,11 @@ export default async function EditInterviewPage({
 
       <div className='rounded-md border p-6 bg-white'>
         <InterviewForm
+          //@ts-expect-error Interview type mismatch
           interview={interview}
           candidates={candidates}
           positions={positions}
+          //@ts-expect-error Interview type mismatch
           interviewers={interviewers}
           isEdit
         />

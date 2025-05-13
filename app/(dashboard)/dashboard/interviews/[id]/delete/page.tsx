@@ -9,21 +9,20 @@ import { InterviewDeleteForm } from '@/components/interviews/interview-delete-fo
 import { format } from 'date-fns';
 
 interface DeleteInterviewPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function DeleteInterviewPage({
   params,
 }: DeleteInterviewPageProps) {
   const session = await auth();
+  const { id } = await params;
 
   if (!session || !session.user) {
     redirect('/login');
   }
 
-  const interview = await getInterviewById(params.id);
+  const interview = await getInterviewById(id);
 
   if (!interview) {
     notFound();

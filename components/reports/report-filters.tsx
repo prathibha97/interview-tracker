@@ -193,7 +193,9 @@ export function ReportFilters({
                 <Calendar
                   mode='range'
                   selected={{ from: date.from, to: date.to }}
-                  onSelect={setDate}
+                  onSelect={(range) => {
+                    setDate({ from: range?.from, to: range?.to });
+                  }}
                   initialFocus
                 />
               </PopoverContent>

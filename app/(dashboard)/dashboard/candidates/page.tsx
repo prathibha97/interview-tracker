@@ -11,12 +11,12 @@ import { CandidatesSearch } from '@/components/candidates/candidates-search';
 import { CandidatesFilters } from '@/components/candidates/candidates-filters';
 
 interface CandidatesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     search?: string;
     status?: string;
     position?: string;
-  };
+  }>;
 }
 
 export default async function CandidatesPage({
@@ -28,10 +28,12 @@ export default async function CandidatesPage({
     redirect('/login');
   }
 
-  const page = Number(searchParams.page) || 1;
-  const search = searchParams.search || '';
-  const status = searchParams.status || '';
-  const position = searchParams.position || '';
+  const awaitedParams = await searchParams;
+
+  const page = Number(awaitedParams.page) || 1;
+  const search = awaitedParams.search || '';
+  const status = awaitedParams.status || '';
+  const position = awaitedParams.position || '';
 
   return (
     <div className='space-y-6'>

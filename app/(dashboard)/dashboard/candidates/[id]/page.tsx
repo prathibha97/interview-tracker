@@ -1,5 +1,6 @@
 // app/(dashboard)/dashboard/candidates/[id]/page.tsx
 
+import { auth } from '@/auth';
 import { CandidateFeedback } from '@/components/candidates/candidate-feedback';
 import { CandidateInfo } from '@/components/candidates/candidate-info';
 import { CandidateInterviews } from '@/components/candidates/candidate-interviews';
@@ -11,24 +12,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getCandidateById } from '@/data/candidate';
 import { CalendarIcon, PencilIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 interface CandidateDetailsPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function CandidateDetailsPage({
   params,
 }: CandidateDetailsPageProps) {
-  // const session = await auth();
+  const session = await auth();
 
-  // if (!session || !session.user) {
-  //   redirect('/login');
-  // }
+  const {id} = await params;
 
-  const candidate = await getCandidateById(params.id);
+  if (!session || !session.user) {
+    redirect('/login');
+  }
+
+  const candidate = await getCandidateById(id);
 
   if (!candidate) {
     notFound();

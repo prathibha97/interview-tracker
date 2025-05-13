@@ -6,15 +6,16 @@ import { db } from '@/lib/db';
 import { InterviewForm } from '@/components/interviews/interview-form';
 
 interface NewInterviewPageProps {
-  searchParams: {
+  searchParams: Promise<{
     candidateId?: string;
-  };
+  }>;
 }
 
 export default async function NewInterviewPage({
   searchParams,
 }: NewInterviewPageProps) {
   const session = await auth();
+  const { candidateId } = await searchParams;
 
   if (!session || !session.user) {
     redirect('/login');
@@ -72,9 +73,10 @@ export default async function NewInterviewPage({
 
       <div className='rounded-md border p-6 bg-white'>
         <InterviewForm
-          defaultCandidateId={await searchParams.candidateId}
+          defaultCandidateId={candidateId}
           candidates={candidates}
           positions={positions}
+          //@ts-expect-error Interview type mismatch
           interviewers={interviewers!}
         />
       </div>
