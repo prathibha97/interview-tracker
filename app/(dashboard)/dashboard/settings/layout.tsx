@@ -1,10 +1,8 @@
 // app/(dashboard)/dashboard/settings/layout.tsx
 
 import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { UserRole } from '@/lib/generated/prisma';
+import { redirect } from 'next/navigation';
 
 interface SettingsLayoutProps {
   children: React.ReactNode;
@@ -32,20 +30,20 @@ export default async function SettingsLayout({
   );
 }
 
-function SettingsTabs() {
-  return (
-    <Tabs defaultValue='general' className='w-full'>
-      <TabsList className='grid w-full grid-cols-3'>
-        <TabsTrigger value='general' asChild>
-          <Link href='/dashboard/settings/general'>General</Link>
-        </TabsTrigger>
-        <TabsTrigger value='users' asChild>
-          <Link href='/dashboard/settings/users'>Users</Link>
-        </TabsTrigger>
-        <TabsTrigger value='workflows' asChild>
-          <Link href='/dashboard/settings/workflows'>Workflows</Link>
-        </TabsTrigger>
-      </TabsList>
-    </Tabs>
-  );
-}
+// function SettingsTabs() {
+//   return (
+//     <Tabs defaultValue='general' className='w-full'>
+//       <TabsList className='grid w-full grid-cols-3'>
+//         <TabsTrigger value='general' asChild>
+//           <Link href='/dashboard/settings/general'>General</Link>
+//         </TabsTrigger>
+//         <TabsTrigger value='users' asChild>
+//           <Link href='/dashboard/settings/users'>Users</Link>
+//         </TabsTrigger>
+//         <TabsTrigger value='workflows' asChild>
+//           <Link href='/dashboard/settings/workflows'>Workflows</Link>
+//         </TabsTrigger>
+//       </TabsList>
+//     </Tabs>
+//   );
+// }

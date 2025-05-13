@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getTimeToHireReport, ReportFilters } from '@/data/reports';
+import {  ReportFilters } from '@/data/reports';
 import {
   Bar,
   BarChart,
@@ -19,6 +19,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import { getTimeToHireReport } from '@/actions/reports';
 
 interface TimeToHireReportProps {
   filters: ReportFilters;
@@ -130,7 +131,7 @@ export function TimeToHireReport({ filters }: TimeToHireReportProps) {
                   <LabelList
                     dataKey='avgDays'
                     position='right'
-                    formatter={(value) => `${value} days`}
+                    formatter={(value: number) => `${value} days`}
                   />
                 </Bar>
               </BarChart>

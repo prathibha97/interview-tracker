@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getInterviewOutcomeReport, ReportFilters } from '@/data/reports';
+import {  ReportFilters } from '@/data/reports';
 import {
   Card,
   CardContent,
@@ -22,13 +22,16 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
+import { getInterviewOutcomeReport } from '@/actions/reports';
 
 interface InterviewOutcomesReportProps {
   filters: ReportFilters;
 }
 
+type RecommendationType = 'STRONG_HIRE' | 'HIRE' | 'NO_DECISION' | 'NO_HIRE' | 'STRONG_NO_HIRE';
+
 interface OutcomeData {
-  recommendation: string;
+  recommendation: RecommendationType;
   count: number;
   label?: string;
 }
@@ -51,6 +54,7 @@ export function InterviewOutcomesReport({
         // Format recommendation labels
         const formattedData = result.data.map((item) => ({
           ...item,
+          recommendation: item.recommendation as RecommendationType,
           label: item.recommendation.replace(/_/g, ' '),
         }));
         

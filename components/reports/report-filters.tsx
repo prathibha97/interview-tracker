@@ -1,11 +1,14 @@
-// components/reports/report-filters.tsx
-
 'use client';
 
-import { useState } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Popover,
   PopoverContent,
@@ -18,16 +21,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { CalendarIcon, FilterIcon, XIcon } from 'lucide-react';
-import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { CalendarIcon, FilterIcon, XIcon } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface ReportFiltersProps {
   positions: { id: string; title: string }[];
@@ -62,6 +60,16 @@ export function ReportFilters({
   const [positionId, setPositionId] = useState(activeFilters.positionId || '');
   const [source, setSource] = useState(activeFilters.source || '');
 
+  // Update local state when active filters change
+  useEffect(() => {
+    setDate({
+      from: activeFilters.startDate,
+      to: activeFilters.endDate,
+    });
+    setPositionId(activeFilters.positionId || '');
+    setSource(activeFilters.source || '');
+  }, [activeFilters]);
+
   // Check if any filters are active
   const hasActiveFilters = !!(
     activeFilters.startDate ||
@@ -72,7 +80,8 @@ export function ReportFilters({
 
   // Apply filters
   const applyFilters = () => {
-    const params = new URLSearchParams(searchParams);
+    // FIX: Create a new URLSearchParams object from the current searchParams
+    const params = new URLSearchParams(searchParams.toString());
 
     // Update date range
     if (date.from) {
@@ -116,7 +125,8 @@ export function ReportFilters({
     setPositionId('');
     setSource('');
 
-    const params = new URLSearchParams(searchParams);
+    // FIX: Create a new URLSearchParams object from the current searchParams
+    const params = new URLSearchParams(searchParams.toString());
     params.delete('startDate');
     params.delete('endDate');
     params.delete('positionId');
@@ -197,7 +207,8 @@ export function ReportFilters({
                 <SelectValue placeholder='All positions' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='All positions'>All positions</SelectItem>
+                {/* FIX: Use empty string for "All positions" value */}
+                <SelectItem value='All'>All positions</SelectItem>
                 {positions.map((position) => (
                   <SelectItem key={position.id} value={position.id}>
                     {position.title}
@@ -214,7 +225,8 @@ export function ReportFilters({
                 <SelectValue placeholder='All sources' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='All sources'>All sources</SelectItem>
+                {/* FIX: Use empty string for "All sources" value */}
+                <SelectItem value='All'>All sources</SelectItem>
                 {sources.map((source) => (
                   <SelectItem key={source} value={source}>
                     {source}

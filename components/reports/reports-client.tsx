@@ -9,7 +9,7 @@ import { InterviewOutcomesReport } from '@/components/reports/interview-outcomes
 import { MonthlyHiresReport } from '@/components/reports/monthly-hires-report';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ReportFilters as ReportFiltersType } from '@/data/reports';
 
 interface ReportsClientProps {
@@ -38,14 +38,24 @@ export function ReportsClient({
     searchParams.tab || 'candidate-status'
   );
 
-  // Process filters from searchParams
+  // Process filters from searchParams - ensure we don't send "$undefined" values
   const filters: ReportFiltersType = {
-    startDate: searchParams.startDate
-      ? new Date(searchParams.startDate)
-      : undefined,
-    endDate: searchParams.endDate ? new Date(searchParams.endDate) : undefined,
-    positionId: searchParams.positionId,
-    source: searchParams.source,
+    startDate:
+      searchParams.startDate && searchParams.startDate !== '$undefined'
+        ? new Date(searchParams.startDate)
+        : undefined,
+    endDate:
+      searchParams.endDate && searchParams.endDate !== '$undefined'
+        ? new Date(searchParams.endDate)
+        : undefined,
+    positionId:
+      searchParams.positionId && searchParams.positionId !== '$undefined'
+        ? searchParams.positionId
+        : undefined,
+    source:
+      searchParams.source && searchParams.source !== '$undefined'
+        ? searchParams.source
+        : undefined,
   };
 
   // Update local state when URL parameters change
@@ -54,17 +64,17 @@ export function ReportsClient({
   }, [searchParams.tab]);
 
   // Handle tab change with client-side navigation
-  const handleTabChange = useCallback(
-    (value: string) => {
-      setActiveTab(value); // Update local state immediately for responsive UI
+  const handleTabChange = (value: string) => {
+    setActiveTab(value); // Update local state immediately for responsive UI
 
-      // Update URL with new tab while preserving other parameters
-      const params = new URLSearchParams(urlSearchParams.toString());
-      params.set('tab', value);
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [router, pathname, urlSearchParams]
-  );
+    // Update URL with new tab while preserving other parameters
+    const params = new URLSearchParams(urlSearchParams.toString());
+    params.set('tab', value);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  // Create a unique key based on filters to force re-render when filters change
+  const filterKey = JSON.stringify(filters);
 
   return (
     <div className='space-y-6'>
@@ -98,27 +108,33 @@ export function ReportsClient({
         </TabsList>
 
         <TabsContent value='candidate-status' className='p-0'>
-          <CandidateStatusReport filters={filters} />
+          <CandidateStatusReport
+            key={`status-${filterKey}`}
+            filters={filters}
+          />
         </TabsContent>
 
         <TabsContent value='sources' className='p-0'>
-          <SourcesReport filters={filters} />
+          <SourcesReport key={`sources-${filterKey}`} filters={filters} />
         </TabsContent>
 
         <TabsContent value='positions' className='p-0'>
-          <PositionsReport filters={filters} />
+          <PositionsReport key={`positions-${filterKey}`} filters={filters} />
         </TabsContent>
 
         <TabsContent value='time-to-hire' className='p-0'>
-          <TimeToHireReport filters={filters} />
+          <TimeToHireReport key={`time-${filterKey}`} filters={filters} />
         </TabsContent>
 
         <TabsContent value='interview-outcomes' className='p-0'>
-          <InterviewOutcomesReport filters={filters} />
+          <InterviewOutcomesReport
+            key={`interview-${filterKey}`}
+            filters={filters}
+          />
         </TabsContent>
 
         <TabsContent value='monthly-hires' className='p-0'>
-          <MonthlyHiresReport filters={filters} />
+          <MonthlyHiresReport key={`monthly-${filterKey}`} filters={filters} />
         </TabsContent>
       </Tabs>
     </div>

@@ -16,7 +16,32 @@ export interface ReportFilters {
   minInterviews?: number;
 }
 
-export async function getCandidateStatusReport(filters: ReportFilters = {}) {
+// Helper function to sanitize filters
+function sanitizeFilters(filters: ReportFilters = {}): ReportFilters {
+  // Handle special case of "$undefined" serialized values
+  return {
+    startDate:
+      filters.startDate instanceof Date ? filters.startDate : undefined,
+    endDate: filters.endDate instanceof Date ? filters.endDate : undefined,
+    positionId:
+      filters.positionId && filters.positionId !== '$undefined'
+        ? filters.positionId
+        : undefined,
+    source:
+      filters.source && filters.source !== '$undefined'
+        ? filters.source
+        : undefined,
+    minInterviews:
+      filters.minInterviews && filters.minInterviews !== '$undefined'
+        ? filters.minInterviews
+        : undefined,
+  };
+}
+
+export async function getCandidateStatusReport(rawFilters: ReportFilters = {}) {
+  // Sanitize the filters to handle "$undefined" values
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {};
@@ -80,7 +105,10 @@ export async function getCandidateStatusReport(filters: ReportFilters = {}) {
   }
 }
 
-export async function getSourceReport(filters: ReportFilters = {}) {
+export async function getSourceReport(rawFilters: ReportFilters = {}) {
+  // Sanitize the filters
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {};
@@ -142,7 +170,10 @@ export async function getSourceReport(filters: ReportFilters = {}) {
   }
 }
 
-export async function getPositionReport(filters: ReportFilters = {}) {
+export async function getPositionReport(rawFilters: ReportFilters = {}) {
+  // Sanitize the filters
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {};
@@ -185,7 +216,7 @@ export async function getPositionReport(filters: ReportFilters = {}) {
     const positions = await db.position.findMany({
       where: {
         id: {
-          in: candidatesByPosition.map((item) => item.positionId) as string[],
+          in: candidatesByPosition.map((item) => item.positionId || ''),
         },
       },
       select: {
@@ -224,7 +255,10 @@ export async function getPositionReport(filters: ReportFilters = {}) {
   }
 }
 
-export async function getTimeToHireReport(filters: ReportFilters = {}) {
+export async function getTimeToHireReport(rawFilters: ReportFilters = {}) {
+  // Sanitize the filters
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {
@@ -328,7 +362,12 @@ export async function getTimeToHireReport(filters: ReportFilters = {}) {
   }
 }
 
-export async function getInterviewOutcomeReport(filters: ReportFilters = {}) {
+export async function getInterviewOutcomeReport(
+  rawFilters: ReportFilters = {}
+) {
+  // Sanitize the filters
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {
@@ -418,7 +457,10 @@ export async function getInterviewOutcomeReport(filters: ReportFilters = {}) {
   }
 }
 
-export async function getMonthlyHiresReport(filters: ReportFilters = {}) {
+export async function getMonthlyHiresReport(rawFilters: ReportFilters = {}) {
+  // Sanitize the filters
+  const filters = sanitizeFilters(rawFilters);
+
   try {
     // Build where clause based on filters
     const where: any = {

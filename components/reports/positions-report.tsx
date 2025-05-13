@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getPositionReport, ReportFilters } from '@/data/reports';
+import {  ReportFilters } from '@/data/reports';
 import {
   Card,
   CardContent,
@@ -19,6 +19,7 @@ import {
   ResponsiveContainer,
   LabelList,
 } from 'recharts';
+import { getPositionReport } from '@/actions/reports';
 
 interface PositionsReportProps {
   filters: ReportFilters;
