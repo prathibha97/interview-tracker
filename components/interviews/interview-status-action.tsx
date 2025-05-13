@@ -1,74 +1,91 @@
-// components/interviews/interview-status-action.tsx
-
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Interview, InterviewStatus } from '@/lib/generated/prisma';
-import { ChevronDownIcon } from 'lucide-react';
-import { updateInterviewStatus } from '@/actions/interview';
-import { ReloadIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
+import {
+  CheckCircle2Icon,
+  XCircleIcon,
+  AlertCircleIcon,
+  ChevronDownIcon,
+} from 'lucide-react';
+import {
+  markInterviewAsCompleted,
+  markInterviewAsCanceled,
+  markInterviewAsNoShow,
+} from '@/actions/interview';
+import { useRouter } from 'next/navigation';
 
 interface InterviewStatusActionProps {
-  interview: Interview;
+  interview: {
+    id: string;
+  };
 }
 
 export function InterviewStatusAction({
   interview,
 }: InterviewStatusActionProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleStatusChange = async (status: InterviewStatus) => {
-    if (status === interview.status) return;
-
-    setIsUpdating(true);
-
+  const handleStatusChange = async (
+    action: (formData: FormData) => Promise<any>
+  ) => {
+    setIsLoading(true);
     try {
-      await updateInterviewStatus(interview.id, status);
-      router.refresh();
+      const formData = new FormData();
+      formData.append('interviewId', interview.id);
+      const result = await action(formData);
+
+      if (result.success) {
+        // Refresh the page to show updated status
+        router.refresh();
+      } else {
+        throw new Error('Failed to update status');
+      }
     } catch (error) {
-      console.error('Failed to update interview status:', error);
+      console.error('Error updating interview status:', error);
+      // You could add toast notification here
+      alert('Failed to update interview status');
     } finally {
-      setIsUpdating(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button disabled={isUpdating}>
-          {isUpdating ? (
-            <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
-          ) : (
-            <>
-              Mark as <ChevronDownIcon className='ml-2 h-4 w-4' />
-            </>
-          )}
+        <Button variant='outline' disabled={isLoading}>
+          {isLoading ? 'Updating...' : 'Update Status'}
+          <ChevronDownIcon className='ml-2 h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem
-          onClick={() => handleStatusChange(InterviewStatus.COMPLETED)}
+          onClick={() => handleStatusChange(markInterviewAsCompleted)}
+          className='cursor-pointer'
         >
-          Completed
+          <CheckCircle2Icon className='mr-2 h-4 w-4 text-green-600' />
+          Mark as Completed
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => handleStatusChange(InterviewStatus.CANCELED)}
+          onClick={() => handleStatusChange(markInterviewAsCanceled)}
+          className='cursor-pointer'
         >
-          Canceled
+          <XCircleIcon className='mr-2 h-4 w-4 text-red-600' />
+          Mark as Canceled
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => handleStatusChange(InterviewStatus.NO_SHOW)}
+          onClick={() => handleStatusChange(markInterviewAsNoShow)}
+          className='cursor-pointer'
         >
-          No Show
+          <AlertCircleIcon className='mr-2 h-4 w-4 text-yellow-600' />
+          Mark as No-Show
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmLink = `${domain}/auth/new-verification?token=${token}`;
+  const confirmLink = `${domain}/new-verification?token=${token}`;
 
   await resend.emails.send({
     from: 'Acme <onboarding@resend.dev>',
@@ -17,7 +17,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetLink = `${domain}/auth/new-password?token=${token}`;
+  const resetLink = `${domain}/new-password?token=${token}`;
 
   await resend.emails.send({
     from: 'Acme <onboarding@resend.dev>',
@@ -36,6 +36,10 @@ export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   });
 };
 
+/**
+ * Sends an email notification for an interview schedule
+ * Used when interviews are created or status changes to SCHEDULED
+ */
 export async function sendInterviewScheduleEmail({
   to,
   candidateName,
@@ -44,6 +48,7 @@ export async function sendInterviewScheduleEmail({
   interviewerNames,
   location,
   notes,
+  actionUrl = '',
 }: {
   to: string;
   candidateName: string;
@@ -52,12 +57,16 @@ export async function sendInterviewScheduleEmail({
   interviewerNames: string[];
   location?: string;
   notes?: string;
+  actionUrl?: string;
 }) {
   const formattedDateTime = formatDateTime(interviewDateTime);
-
   const interviewers = interviewerNames.join(', ');
-
   const subject = `Interview Scheduled: ${interviewTitle} with ${candidateName}`;
+
+  // If no actionUrl is provided, default to the dashboard
+  const linkUrl =
+    actionUrl ||
+    `${process.env.NEXT_PUBLIC_APP_URL || 'https://yourapp.com'}/dashboard/interviews`;
 
   const html = `
     <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px;">
@@ -102,7 +111,9 @@ export async function sendInterviewScheduleEmail({
           : ''
       }
       
-      <p style="margin-top: 30px;">Please log in to the <a href="${process.env.APP_URL || 'https://yourapp.com'}">Interview Tracking System</a> for more details.</p>
+      <div style="margin-top: 20px; text-align: center;">
+        <a href="${linkUrl}" style="background-color: #4F46E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">View Details</a>
+      </div>
       
       <div style="margin-top: 40px; color: #777; font-size: 12px;">
         <p>Best regards,<br>Interview Tracking System</p>
@@ -121,34 +132,44 @@ export async function sendInterviewScheduleEmail({
     });
 
     if (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending interview schedule email:', error);
       return false;
     }
 
-    console.log(`Email sent to ${to}, ID: ${data?.id}`);
+    console.log(`Schedule email sent to ${to}, ID: ${data?.id}`);
     return true;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending interview schedule email:', error);
     return false;
   }
 }
 
+/**
+ * Sends a reminder email to interviewers to submit feedback
+ * Used when interview status changes to COMPLETED
+ */
 export async function sendFeedbackReminderEmail({
   to,
   interviewerName,
   candidateName,
   interviewTitle,
   interviewDateTime,
+  interviewId = '',
 }: {
   to: string;
   interviewerName: string;
   candidateName: string;
   interviewTitle: string;
   interviewDateTime: Date;
+  interviewId?: string;
 }) {
   const formattedDateTime = formatDateTime(interviewDateTime);
-
   const subject = `Feedback Reminder: ${interviewTitle} with ${candidateName}`;
+
+  // Create a direct link to the feedback form if an ID is provided
+  const feedbackLink = interviewId
+    ? `${process.env.NEXT_PUBLIC_APP_URL || 'https://yourapp.com'}/dashboard/interviews/${interviewId}/feedback/new`
+    : `${process.env.NEXT_PUBLIC_APP_URL || 'https://yourapp.com'}/dashboard/interviews`;
 
   const html = `
     <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px;">
@@ -171,7 +192,9 @@ export async function sendFeedbackReminderEmail({
         </tr>
       </table>
       
-      <p>Please log in to the <a href="${process.env.APP_URL || 'https://yourapp.com'}/dashboard/interviews">Interview Tracking System</a> to submit your feedback.</p>
+      <div style="margin-top: 20px; text-align: center;">
+        <a href="${feedbackLink}" style="background-color: #4F46E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">Submit Feedback</a>
+      </div>
       
       <div style="margin-top: 40px; color: #777; font-size: 12px;">
         <p>Best regards,<br>Interview Tracking System</p>
@@ -190,14 +213,65 @@ export async function sendFeedbackReminderEmail({
     });
 
     if (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending feedback reminder email:', error);
       return false;
     }
 
-    console.log(`Email sent to ${to}, ID: ${data?.id}`);
+    console.log(`Feedback reminder email sent to ${to}, ID: ${data?.id}`);
     return true;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending feedback reminder email:', error);
+    return false;
+  }
+}
+
+/**
+ * Sends notification emails when a new interview is created
+ * @param interview The interview data with related entities
+ */
+export async function sendNewInterviewNotifications(interview: any) {
+  try {
+    const interviewerNames = interview.interviewers.map((interviewer: any) =>
+      `${interviewer.firstName} ${interviewer.lastName}`.trim()
+    );
+
+    const candidateName =
+      `${interview.candidate.firstName} ${interview.candidate.lastName}`.trim();
+    const detailUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://yourapp.com'}/dashboard/interviews/${interview.id}`;
+
+    // Send to each interviewer
+    for (const interviewer of interview.interviewers) {
+      if (interviewer.email) {
+        await sendInterviewScheduleEmail({
+          to: interviewer.email,
+          candidateName,
+          interviewTitle: interview.title,
+          interviewDateTime: interview.startTime,
+          interviewerNames,
+          location: interview.location || undefined,
+          notes: interview.notes || undefined,
+          actionUrl: detailUrl,
+        });
+      }
+    }
+
+    // Send to candidate if they have an email
+    if (interview.candidate.email) {
+      await sendInterviewScheduleEmail({
+        to: interview.candidate.email,
+        candidateName,
+        interviewTitle: interview.title,
+        interviewDateTime: interview.startTime,
+        interviewerNames,
+        location: interview.location || undefined,
+        notes: interview.notes || undefined,
+        actionUrl: detailUrl,
+      });
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error sending new interview notifications:', error);
     return false;
   }
 }

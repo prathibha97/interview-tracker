@@ -102,7 +102,7 @@ export default async function InterviewDetailPage({
         </div>
       </div>
 
-      <InterviewDetail interview={interview} currentUserId={session.user.id} />
+      <InterviewDetail interview={interview} currentUserId={session.user.id as string} />
     </div>
   );
 }
