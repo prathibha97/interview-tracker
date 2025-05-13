@@ -65,7 +65,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
               className='cursor-pointer'
               onSelect={(event) => {
                 event.preventDefault();
-                signOut({ callbackUrl: '/' });
+                signOut({ callbackUrl: '/login' });
               }}
             >
               Sign out
